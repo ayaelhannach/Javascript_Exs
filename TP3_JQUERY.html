@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style type="text/css">
+        #div1 {
+            width: 300px;
+            height: 200px;
+            border: 1px solid;
+            text-align: center;
+            padding-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="div1">c'est un div</div><br />
+    <button id="btn1">Insérer Image</button><br />
+
+    width : <input id="widthSlider" type="range" min="1" max="800" step="10" value="300"/>
+    height : <input id="heightSlider" type="range" min="1" max="800" step="10" value="200"/>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        
+        $('#btn1').on('click', function() {
+            $('#div1').html('<img id="img1" src="https://via.placeholder.com/150" alt="exemple" />');
+        });
+
+        
+        $('#widthSlider').on('input', function() {
+            var newWidth = $(this).val();
+            $('#img1').css('width', newWidth + 'px');
+            $('#div1').css('width', newWidth + 'px');
+        });
+
+        
+        $('#heightSlider').on('input', function() {
+            var newHeight = $(this).val();
+            $('#img1').css('height', newHeight + 'px');
+            $('#div1').css('height', newHeight + 'px');
+        });
+    </script>
+
+</body>
+</html>

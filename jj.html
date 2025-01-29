@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .error {
+            color: red;
+            font-size: 12px;
+        }
+        .error-border {
+            border: red 1px solid;
+        }
+    </style>
+</head>
+<body>
+    <div class="reservation-form">
+        <h2>Nouvelle Réservation</h2>
+        <form action="#" method="post">
+            <label for="reservation-id">ID Réservation:</label><br>
+            <input type="text" id="reservation-id" name="reservation-id"><br><br>
+            <span id="reservation-id-error" class="error"></span>
+    
+            <label for="room-type">Type de Chambre:</label><br>
+            <select id="room-type" name="room-type">
+            </select><br><br>
+    
+            <label for="last-name">Nom Client:</label><br>
+            <input type="text" id="last-name" name="last-name"><br><br>
+            <span id="last-name-error" class="error"></span>
+    
+            <label for="first-name">Prénom Client:</label><br>
+            <input type="text" id="first-name" name="first-name"><br><br>
+    
+            <label for="start-date">Date Début:</label><br>
+            <input type="date" id="start-date" name="start-date"><br><br>
+    
+            <label for="end-date">Date Fin:</label><br>
+            <input type="date" id="end-date" name="end-date"><br><br>
+    
+            <fieldset style="width: 300px;">
+                <legend>Activités à Faire:</legend>
+                <label for="piscine"><input type="checkbox" id="piscine" name="activities" value="piscine"> Piscine</label><br>
+                <label for="spa"><input type="checkbox" id="spa" name="activities" value="spa"> Spa</label><br>
+                <label for="restaurant"><input type="checkbox" id="restaurant" name="activities" value="restaurant"> Restaurant</label><br>
+                <label for="excursions"><input type="checkbox" id="excursions" name="activities" value="excursions"> Excursions</label>
+            </fieldset><br><br>
+    
+            <button type="submit" onclick="valide(event)">Ajouter Réservation</button>
+        </form><br><br>
+    
+        <table border="1" id="table">
+            <tr>
+                <th>ID Réservation</th>
+                <th>Type de Chambre</th>
+                <th>Nom Complet</th>
+                <th>Date Début</th>
+                <th>Date Fin</th>
+                <th>Activités Sélectionnées</th>
+                <th>Durée</th>
+                <th>Prix Total</th>
+                <th>Status</th>
+                <th>confirm</th>
+                <th>Annuler</th>
+                <th>Sélection</th>
+                <th>Delete</th>
+    
+            </tr>
+        </table>
+        <script>
+            var chambresData = [ { "id": 1, "type": "Simple","prix":800 }, 
+    			 { "id": 2, "type": "Double","prix":1500}, 
+    			 { "id": 3, "type": "Suite","prix":2500 } 
+            ];
+
+            let type = document.getElementById('room-type');
+            for(let i = 0 ; i<chambresData.length ;i++){
+                type.innerHTML+= '<option>'+ chambresData[i].type +'</option>';
+            }
+
+            function valide(event){
+                event.preventDefault(); 
+                let expId = /^RES_2024_[0-9]{2}$/;
+
+                let id = document.getElementById('reservation-id').value ;
+                if(!expId.test(id)){
+                    alert('l’id de réservation comment par RES_2024 suivi par deux chiffres');
+                    
+                }
+
+                let expNom = /^[A-Z]{2,15}$/;
+
+                let nom = document.getElementById('last-name').value ;
+
+                if(!expNom.test(nom)){
+                    alert('le nom de client est composé uniquement de lettres majuscules et respecte une longueur de 2 à 15 ');
+                    
+                }
+
+                let table = document.getElementById('table');
+                let row = table.insertRow(-1);
+                row.insertCell(0).innerText = id ;
+                row.insertCell(1).innerText = type.value ; 
+                row.insertCell(2).innerText = nom +" " +document.getElementById('first-name').value;
+                row.insertCell(3).innerText = document.getElementById('start-date').value;
+                row.insertCell(4).innerText = document.getElementById('end-date').value;
+                let Activités = document.getElementsByName('activities');
+                let activitiesListe = [];
+
+                Activités.forEach((checkbox)=>{
+                    if (checkbox.checked) {
+                        activitiesListe.push(checkbox.value);
+                    }
+                });
+
+                row.insertCell(5).innerText = activitiesListe.join(",");
+
+                let startDate = new Date(document.getElementById('start-date').value);
+                let endDate = new Date(document.getElementById('end-date').value);
+
+                let duration = (endDate - startDate)/(1000 * 60 * 60 * 24);
+                row.insertCell(6).innerText = duration + "jours";
+
+                let type = document.getElementById('room-type').value;
+                let prixTotal = 0 ;
+                
+                if(chambresData[0].type == type){
+                     prixTotal  = chambresData[0].prix * duration; 
+                }
+                else if (type == chambresData[1].type){
+                    prixTotal = chambresData[1].type * duration ;
+                }
+                else if (type == chambresData[2].type){
+                    prixTotal = chambresData[2].type * duration ;
+                }
+
+                let idMax = 0 
+                let rows = table.rows;
+                for(let i = 0 ; i<rows.length ; i++){
+                    let id = parseInt(rows[i].cells[0].innerText);
+                    if(id>idMax){
+                        idMax = id ;
+                    }
+                }
+                let newId = idMax + 1;
+                idInput.value = newId ;
+                
+
+            }
+
+
+        </script>
+</body>
+</html>

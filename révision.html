@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nouvelle Réservation</title>
+    
+    <style>
+        .error {
+            color: red;
+            font-size: 12px;
+        }
+        .error-border {
+            border: red 1px solid;
+        }
+    </style>
+</head>
+<body>
+    <div class="reservation-form">
+        <h2>Nouvelle Réservation</h2>
+        <form action="#" method="post">
+            <label for="reservation-id">ID Réservation:</label><br>
+            <input type="text" id="reservation-id" name="reservation-id"><br><br>
+            <span id="reservation-id-error" class="error"></span>
+
+            <label for="room-type">Type de Chambre:</label><br>
+            <select id="room-type" name="room-type">
+            </select><br><br>
+
+            <label for="last-name">Nom Client:</label><br>
+            <input type="text" id="last-name" name="last-name"><br><br>
+            <span id="last-name-error" class="error"></span>
+
+            <label for="first-name">Prénom Client:</label><br>
+            <input type="text" id="first-name" name="first-name"><br><br>
+
+            <label for="start-date">Date Début:</label><br>
+            <input type="date" id="start-date" name="start-date"><br><br>
+
+            <label for="end-date">Date Fin:</label><br>
+            <input type="date" id="end-date" name="end-date"><br><br>
+
+            <fieldset style="width: 300px;">
+                <legend>Activités à Faire:</legend>
+                <label for="piscine"><input type="checkbox" id="piscine" name="activities" value="piscine"> Piscine</label><br>
+                <label for="spa"><input type="checkbox" id="spa" name="activities" value="spa"> Spa</label><br>
+                <label for="restaurant"><input type="checkbox" id="restaurant" name="activities" value="restaurant"> Restaurant</label><br>
+                <label for="excursions"><input type="checkbox" id="excursions" name="activities" value="excursions"> Excursions</label>
+            </fieldset><br><br>
+
+            <button type="submit" onclick="valide(event)">Ajouter Réservation</button>
+        </form><br><br>
+
+        <table border="1" id="table">
+            <tr>
+                <th>ID Réservation</th>
+                <th>Type de Chambre</th>
+                <th>Nom Complet</th>
+                <th>Date Début</th>
+                <th>Date Fin</th>
+                <th>Activités Sélectionnées</th>
+                <th>Durée</th>
+                <th>Prix Total</th>
+                <th>Status</th>
+                <th>confirm</th>
+                <th>Annuler</th>
+                <th>Sélection</th>
+                <th>Delete</th>
+
+            </tr>
+        </table>
+
+        <script>
+            var chambresData = [
+                { "id": 1, "type": "Simple", "prix": 800 },
+                { "id": 2, "type": "Double", "prix": 1500 },
+                { "id": 3, "type": "Suite", "prix": 2500 }
+            ];
+
+            var type = document.getElementById('room-type');
+            for (let i = 0; i < chambresData.length; i++) {
+                type.innerHTML += '<option>' + chambresData[i].type + '</option>';
+            }
+            // function ajouterProduitAuPanier() {
+            //     for(let i = 0; i < donnes.consoles.length; i++) {
+            //         if(donnes.consoles[i].ref == select.value) {
+            //             table.innerHTML += `
+            //             <tr>
+            //                 <td>${donnes.consoles[i].ref}</td>
+            //                 <td>${donnes.consoles[i].prix}</td>
+            //                 <td>${quantite.value}</td>
+            //                 <td><img src='${donnes.consoles[i].Image}' style=' width: 60px;'></td>
+            //                 <td><button onclick="removeRow(this)">Remove</button></td>
+            //             </tr>`;
+            //             calculerPrixht(donnes.consoles[i]);
+            //             calculerPrixttc(donnes.consoles[i]);
+            //         }
+            //     }
+            // }
+
+            function valide(event) {
+                event.preventDefault(); 
+
+                
+
+                let id = document.getElementById('reservation-id').value;
+                let expRId = /^RES_2024_\d{2}$/;
+                let idError = document.getElementById('reservation-id-error');
+                let idField = document.getElementById('reservation-id');
+
+                if (!expRId.test(id)) {
+                    idError.textContent = "L'ID de réservation doit commencer par 'RES_2024' suivi par deux chiffres (par exemple : RES_2024_22).";
+                    idField.classList.add('error-border');
+                    
+                } 
+
+                let nom = document.getElementById('last-name').value;
+                let expRN = /^[A-Z]{2,15}$/;
+                let nomError = document.getElementById('last-name-error');
+                let nomField = document.getElementById('last-name');
+
+                if (!expRN.test(nom)) {
+                    nomError.textContent = "Le nom du client doit être composé uniquement de lettres majuscules et avoir une longueur de 2 à 15 caractères.";
+                    nomField.classList.add('error-border');
+                    
+                } 
+
+                
+                    let table = document.getElementById('table');
+                    let row = table.insertRow(-1);
+                    row.insertCell(0).innerHTML = id;
+                    row.insertCell(1).innerHTML = document.getElementById('room-type').value;
+                    row.insertCell(2).innerHTML = nom + " " + document.getElementById('first-name').value;
+                    row.insertCell(3).innerHTML = document.getElementById('start-date').value;
+                    row.insertCell(4).innerHTML = document.getElementById('end-date').value;
+
+                    
+                    let  activities= document.getElementsByName('activities');
+                    let  activitiesList= [];
+                    
+
+                    activities.forEach((checkbox) => {
+                        if (checkbox.checked) {
+                            activitiesList.push(checkbox.value);
+                        }
+                    });
+                    row.insertCell(5).innerHTML = activitiesList.join(", ");
+                
+
+                    let startDate = new Date(document.getElementById('start-date').value);
+                    let endDate = new Date(document.getElementById('end-date').value);
+                    let duration = (endDate - startDate) / (1000 * 60 * 60 * 24);
+                    row.insertCell(6).innerHTML = duration + " jours";
+
+                    let type = document.getElementById('room-type').value;
+                    let prixTotal = 0;
+
+                    if(type == chambresData[0].type) {
+                        prixTotal = chambresData[0].prix * duration;
+                    } else if(type == chambresData[1].type) {
+                        prixTotal = chambresData[1].prix * duration;
+                    } else if(type == chambresData[2].type) {
+                        prixTotal = chambresData[2].prix * duration;
+                    }
+
+                    row.insertCell(7).innerHTML = prixTotal + " DH";
+        
+                    row.insertCell(8).innerText = 'En Attente';
+
+                    let cell9 = document.createElement('button');
+                    cell9.innerHTML = 'Confirmer';
+
+                    cell9.addEventListener('click', function() {
+                        row.cells[8].innerText = 'Confirmée';
+                    });
+                    row.insertCell(9).appendChild(cell9);
+                    
+                    
+                        
+                    let  cell10 = document.createElement('button');
+                    cell10.innerHTML = 'Annuler';
+                    cell10.addEventListener('click' , function(){
+                        if (confirm("Êtes-vous sûr de vouloir annuler cette réservation?")) {
+                            
+                            let rowIndex = cell10.parentNode.parentNode.rowIndex; 
+                            let row = document.getElementById("table").rows[rowIndex];
+                            row.style.textDecoration = "line-through";
+                            row.style.color = "gray";
+                            cell10.disabled = true;
+                            
+                            let cell9 = row.cells[11].getElementsByTagName('button');
+                            cell9.disabled = true;
+                        }
+                    });
+                    row.insertCell(10).appendChild(cell10);
+
+                    let input = document.createElement('input');
+                    input.type = 'checkbox';
+                    row.insertCell(11).appendChild(input);
+
+                    let supp = document.createElement('button');
+                    supp.innerHTML = 'supprimer sélection';
+                    supp.addEventListener('click', function() {
+                        if (input.checked) {
+                            let table = document.getElementById('table');
+                            table.deleteRow(row.rowIndex);
+                        } else {
+                            alert("Veuillez sélectionner la case à cocher avant de supprimer la ligne."); 
+                        }
+                    });
+                    row.insertCell(12).appendChild(supp);
+
+
+
+
+
+
+                   
+                    
+            }
+        </script>
+    </div>
+</body>
+</html>

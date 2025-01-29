@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Commande de livres informatiques</h1>
+    <select id="selection">
+    </select>
+    <div id="div">
+    </div><br><br>
+    <button type="submit" onclick="ajouter()">Ajouter au panier</button>
+    <h1>Panier</h1><br>
+    <table border="1" id="table">
+        <tr>
+            <th>ISBN</th>
+            <th>Titre</th>
+            <th>Image</th>
+            <th>Prix</th>
+            <th>Action</th>
+        </tr>
+    </table>
+    <p id="totalPrix">Prix Total à payer : 0 DH</p>
+    <script>
+        let div = document.getElementById('div');
+        let totalPrixElement = document.getElementById('totalPrix');
+        let prixTotal = 0;
+
+        var Livresdata = [
+            {ISBN: "01234", titre: "Langage C", image: "langagec.jpg", prix: 150},
+            {ISBN: "56789", titre: "Programmation Javascript", image: "javascript.jpg", prix: 250},
+            {ISBN: "11778", titre: "Laravel", image: "laravel.jpg", prix: 200}
+        ];
+
+        function charger() {
+            let selection = document.getElementById('selection');
+            for (let i = 0; i < Livresdata.length; i++) {
+                let option = document.createElement('option');
+                option.text = Livresdata[i].titre;
+                selection.add(option);
+            }
+        }
+
+        window.onload = charger;
+
+        document.getElementById('selection').addEventListener('change', () => {
+            div.innerHTML = '';
+            let selectedTitle = document.getElementById('selection').value;
+            Livresdata.map(x => {
+                if (x.titre === selectedTitle) {
+                    div.innerHTML = `
+                        <h1>${x.titre}</h1>
+                        <img src='${x.image}' style='width: 60px;'>
+                        <p>${x.prix} DH</p>
+                    `;
+                }
+            });
+        });
+
+        function ajouter() {
+            let table = document.getElementById('table');
+            let selectedTitle = document.getElementById('selection').value;
+            let selectedBook = Livresdata.find(book => book.titre === selectedTitle);
+
+            if (selectedBook) {
+                let row = table.insertRow();
+                row.insertCell(0).innerHTML = selectedBook.ISBN;
+                row.insertCell(1).innerHTML = selectedBook.titre;
+                row.insertCell(2).innerHTML = `<img src='${selectedBook.image}' style='width: 60px;'>`;
+                row.insertCell(3).innerHTML = `${selectedBook.prix} DH`;
+
+                let actionCell = row.insertCell(4);
+                let removeButton = document.createElement('button');
+                removeButton.innerHTML = 'Retirer';
+                removeButton.onclick = function() {
+                    Retirer(row, selectedBook.prix);
+                };
+                actionCell.appendChild(removeButton);
+
+                prixTotal += selectedBook.prix;
+                totalPrixElement.innerHTML = `Prix Total à payer : ${prixTotal} DH`;
+            }
+        }
+
+        function Retirer(row, prix) {
+            let table = document.getElementById('table');
+            table.deleteRow(row.rowIndex);
+            prixTotal -= prix;
+            totalPrixElement.innerHTML = `Prix Total à payer : ${prixTotal} DH`;
+        }
+    </script>
+</body>
+</html>

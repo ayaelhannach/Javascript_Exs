@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .title {
+            margin-left: 100px;
+        }
+        .visa, .paypal {
+            width: 80px;
+            height: 80px;
+        }
+    </style>
+</head>
+<body>
+    <h1 class="title">Information de payement</h1>
+    <form id="myFormulaire">
+        <label>Nom et prénom du client :</label>
+        <input type="text" id="nom"><br><br>
+
+        <label>Adresse :</label>
+        <input type="text" id="adresse"><br><br>
+        
+        <label>Numéro de téléphone :</label>
+        (+212)<input type="tel" id="numero"><br><br>
+        
+        <label>Type de paiement :</label><br>
+        <div id="selection">
+            <input type="radio" id="paypalRadio" name="payment" value="paypal">
+            <label for="paypalRadio"><img src="Paypal.jpeg" class="paypal"></label>
+
+            <input type="radio" id="visaRadio" name="payment" value="visa">
+            <label for="visaRadio">par carte bancaire<img src="Visa.jpeg" class="visa"></label>
+        </div><br><br>
+        
+        <div id="Email">
+            <label id="labelEmail">Entrer votre e-mail :</label>
+            <input type="email" id="email"><br><br>
+        </div>
+
+        <div id="passe">
+            <label id="labelMtp">Mot de passe :</label>
+            <input type="password" id="password"><br><br>
+        </div>
+        
+        <label id="nb">NB : N'oubliez pas d'autoriser la transaction</label><br><br>
+        
+        <p style="display: none;" id="typeCarte">Selectionnez le type de carte :</p>
+        <select style="display: none;" id="selectVisa">
+            <option>Visa</option>
+        </select>
+        <p style="display: none;" id="NumCarte">Numero de la carte :</p>
+        <input type="text" style="display: none;" id="InputNumC"><br><br>
+        <p style="display: none;" id="ExFin">Expiration fin :</p>
+        <input type="number" style="display: none;" id="InputFin">
+        <input type="number" style="display: none;" id="InputFinNum">
+        <p style="display: none;" id="codeVrf">Code de verification :</p>
+        <input type="text" style="display: none;" id="InputVrf">
+
+        <button type="submit" id="valider">Valider</button>
+        <button type="reset" id="effacer">Effacer</button>
+    </form>
+    <script>
+        function validateForm() {
+            let nom = document.getElementById('nom').value;
+            let adresse = document.getElementById('adresse').value;
+            let numero = document.getElementById('numero').value;
+            let payment = document.querySelector('input[name="payment"]:checked');
+            let email = document.getElementById('email').value;
+            let password = document.getElementById('password').value;
+            let InputNumCV = document.getElementById('InputNumC').value;
+            
+            if (!nom || !adresse || !numero || !payment || (payment.value === 'paypal' && (!email || !password))) {
+                alert('Vous devez remplir tous les champs');
+                return false;
+            }
+
+            let expNum = /^[0-9]{9}$/;
+            if (!expNum.test(numero)) {
+                alert('Le numéro de téléphone doit contenir 9 chiffres');
+                return false;
+            }
+
+            let expEmail = /@/;
+            if (payment.value === 'paypal' && !expEmail.test(email)) {
+                alert('email doit contenir @');
+                return false;
+            }
+
+            if (payment.value === 'visa') {
+                let regNumCart = /^[0-9]{16}$/;
+                if (!regNumCart.test(InputNumCV)) {
+                    alert('Le numéro de carte doit contenir 16 chiffres');
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        document.getElementById('myFormulaire').addEventListener('submit', function(event) {
+            if (!validateForm()) {
+                event.preventDefault();
+            }
+        });
+
+        let selection = document.getElementById('selection');
+        let emailField = document.getElementById('Email');
+        let passwordField = document.getElementById('passe');
+        let nbField = document.getElementById('nb');
+        let labelEmail = document.getElementById('labelEmail');
+        let labelMtp = document.getElementById('labelMtp');
+        let typeCarte = document.getElementById('typeCarte');
+        let selectVisa = document.getElementById('selectVisa');
+        let NumCarte = document.getElementById('NumCarte');
+        let InputNumC = document.getElementById('InputNumC');
+        let ExFin = document.getElementById('ExFin');
+        let InputFin = document.getElementById('InputFin');
+        let InputFinNum = document.getElementById('InputFinNum');
+        let codeVrf = document.getElementById('codeVrf');
+        let InputVrf = document.getElementById('InputVrf');
+
+        selection.addEventListener('change', function() {
+            let paymentMethod = document.querySelector('input[name="payment"]:checked').value;
+
+            if (paymentMethod === 'visa') {
+                emailField.style.display = 'none';
+                passwordField.style.display = 'none';
+                nbField.style.display = 'none';
+                labelEmail.style.display = 'none';
+                labelMtp.style.display = 'none';
+                
+                typeCarte.style.display = 'block';
+                selectVisa.style.display = 'block';
+                NumCarte.style.display = 'block';
+                InputNumC.style.display = 'block';
+                ExFin.style.display = 'block';
+                InputFin.style.display = 'block';
+                InputFinNum.style.display = 'block';
+                codeVrf.style.display = 'block';
+                InputVrf.style.display = 'block';
+
+            } else if (paymentMethod === 'paypal') {
+                emailField.style.display = 'block';
+                passwordField.style.display = 'block';
+                nbField.style.display = 'block';
+                labelEmail.style.display = 'block';
+                labelMtp.style.display = 'block';
+                
+                typeCarte.style.display = 'none';
+                selectVisa.style.display = 'none';
+                NumCarte.style.display = 'none';
+                InputNumC.style.display = 'none';
+                ExFin.style.display = 'none';
+                InputFin.style.display = 'none';
+                InputFinNum.style.display = 'none';
+                codeVrf.style.display = 'none';
+                InputVrf.style.display = 'none';
+            }
+        });
+
+
+        let a = 5;
+        let b = 1; 
+
+        for (let i = 1; i <= a; i++) {
+            b *= i;
+        }
+
+        console.log(b);
+
+
+
+    </script>
+</body>
+</html>

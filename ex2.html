@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let nombre1 = prompt("entrer un nombre");
+        let nombre2 = prompt("entrer un nombre");
+        let nombre3 = prompt("entrer un nombre");
+        let nombre4 = prompt("entrer un nombre");
+        let nombre5 = prompt("entrer un nombre");
+        
+
+        function calcul(){
+           if (nombre1 > nombre2  ){
+            console.log("le nombre la plus grand est : "+nombre1 )
+           }
+           else{
+            console.log("le nombre la plus grand est : "+nombre2 )
+           }
+           
+        }
+        calcul()
+        
+        function caree(){
+            console.log(  "caree de nombre est:" +nombre3 ** 2)
+        }
+        caree()
+
+        function  opérations (){
+            if (nombre4>= 10 && nombre4 <= 15){
+                console.log("le plus grand nombre entre 10 et 15 : " +Math.max(nombre4));
+            }
+            else{
+                console.log("Valeur hors de la plage");
+            }
+            
+        }
+        opérations()
+        function opérations2(){
+            if (nombre5>=7 && nombre5 <=9){
+                let grandcaree = Math.max(nombre5);
+                let caree = nombre5 ** 2;
+                console.log("le carré du plus grand nombre entre 7 et 9 est " + caree)
+            }
+            else{
+                console.log("Valeur hors de la plage")
+            }
+        }
+        opérations2()
+    </script>
+</body>
+</html>

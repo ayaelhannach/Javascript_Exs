@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Averages</title>
+</head>
+<body>
+    <script>
+        const studentData = []; 
+
+        for (let studentId = 1; studentId <= 25; studentId++) {
+            const numScores = parseInt(prompt(`كم عدد النقاط لطالب رقم ${studentId}?`)); 
+
+            if (isNaN(numScores) || numScores <= 0) {
+                console.log("عدد النقاط غير صالح");
+                continue;
+            }
+
+            const scores = []; // لتخزين نقاط الطالب
+            for (let i = 0; i < numScores; i++) {
+                const score = parseFloat(prompt(`أدخل النقطة رقم ${i + 1} لطالب رقم ${studentId}`));
+                if (!isNaN(score)) {
+                    scores.push(score);
+                } else {
+                    console.log("النقطة غير صالحة");
+                }
+            }
+
+            studentData.push({
+                studentId, 
+                scores 
+            });
+        }
+
+        
+        function calculateAverage(scores) {
+            const total = scores.reduce((sum, score) => sum + score, 0);
+            const average = total / scores.length;
+            return average;
+        }
+
+        
+
+
+        console.log("moyenne note");
+        studentData.forEach((student) => {
+            const average = calculateAverage(student.scores);
+            console.log(`eleve numero ${student.studentId}:  ${average}`);
+        });
+
+
+        
+
+        const allScores = studentData.reduce((all, student) => all.concat(student.scores), []);
+        const averageSection = calculateAverage(allScores);
+        console.log(`متوسط القسم هو: ${averageSection}`);
+
+    </script>
+</body>
+</html>

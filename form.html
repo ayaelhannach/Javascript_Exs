@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Formulaire d'informations</title>
+</head>
+<body>
+  <h1>Formulaire d'informations</h1>
+  <form id="monFormulaire">
+    <label for="nom"> Votre Nom :</label>
+    <input type="text" id="nom" name="nom" required>
+
+    <label for="prenom"> Votre Prénom :</label>
+    <input type="text" id="prenom" name="prenom" required><br><br>
+
+    <label for="telephone">Numéro de téléphone :</label>
+    <input type="tel" id="telephone" name="telephone" required>
+
+    <label for="pats">Votre Pats :</label>
+    <select id="pats">
+        <option >pays1</option>
+        <option selected >pays2</option>
+        <option >pays3</option>
+    </select><br><br>
+    <h3>Sexe</h3>
+    <input type="radio"  name="sexe" value="Homme" id="homme">Homme
+    <input type="radio"  name="sexe" value="Femme" id="femme">Femme<br><br>
+  
+
+    <button type="submit">Soumettre</button>
+  </form>
+
+  <script>
+    document.getElementById('monFormulaire').addEventListener('submit', function(e) {
+      e.preventDefault(); 
+
+      
+      let nom = document.getElementById('nom').value;
+      let prenom = document.getElementById('prenom').value;
+      let telephone = document.getElementById('telephone').value;
+      let pats = document.getElementById('pats').value;
+      let homme = document.getElementById('homme').value;
+      let femme = document.getElementById('femme').value;
+
+      
+      console.log("Nom :", nom);
+      console.log("Prénom :", prenom);
+      console.log("Téléphone :", telephone);
+      console.log("Pats :", pats);
+      console.log("homme :", homme);
+      console.log("femme :", femme);
+
+      
+    })
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+                    let startDate = new Date(document.getElementById('start-date').value);
+                    let endDate = new Date(document.getElementById('end-date').value);
+                    let duration = (endDate - startDate) / (1000 * 60 * 60 * 24);
+                    row.insertCell(6).innerHTML = duration + " jours";
+
+                    let type = document.getElementById('room-type').value;
+                    let prixTotal = 0;
+
+                    if(type == chambresData[0].type) {
+                        prixTotal = chambresData[0].prix * duration;
+                    } else if(type == chambresData[1].type) {
+                        prixTotal = chambresData[1].prix * duration;
+                    } else if(type == chambresData[2].type) {
+                        prixTotal = chambresData[2].prix * duration;
+                    }
+
+                    row.insertCell(7).innerHTML = prixTotal + " DH";
+
+
+
+
+                    if(isNaN(quantityElem.value)) {
+                alert("Le quantity doivent être uniquement des nombre.");
+                return false;
+            }
+
+
+
+            let maxId = 0;
+            let rows = achatsTable.rows;
+            for(let i = 0; i < rows.length; i++) {
+                let id = parseInt(rows[i].cells[0].innerText);
+                if(id > maxId) {
+                    maxId = id;
+                }
+            }
+            let newId = maxId + 1;
+            idAchatElem.value = newId;         
+                let prixUnitaire;
+                for (let i = 0; i < articles.length; i++) {
+                    if (articles[i].ref === articleSelect) {
+                        prixUnitaire = articles[i].price;
+                        break;
+                    }
+                }
+
+                prixUnitaireElem.value = prixUnitaire;
+                let montant = prixUnitaire * quantity;
+                montantElem.value =  montant;
+
+                let totalAchatsElem = document.getElementById('totalAchats');
+                totalAchatsElem.innerText = parseFloat(totalAchatsElem.innerText) + montant;
+
+
+                affiche.addEventListener('click',function(){
+                    liste.forEach(itme=>{
+                        table.innerHTML+=`
+                        <tr>
+                            <td>${itme[0]}</td>
+                            <td>${itme[1]}</td>
+                            <td>${itme[2]}</td>
+                            <td>${itme[3]}</td>
+                            <td>${itme[4]}</td>
+                        </tr>
+                        `
+                    })
+                })
+        
+    </script>
+</body>
+</html>

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form id="formulaire">
+    </form><br><br>
+    
+    <table border="1" id="table">
+        <tr>
+            <th>Code</th>
+            <th>Nom</th>
+            <th>Prenom</th>
+            <th>Numero</th>
+            <th>Equipe</th>
+        </tr>
+    </table><br><br>
+    <button type="button" id="ajouter" onclick="ajouterForm()">Ajouter</button>
+    <button type="button" id="supprimer" onclick="supprimer()">Supprimer</button><br><br>
+    <button type="button" onclick="ListMatch()">Afficher liste des matches</button><br><br>
+    <ul id="list">
+
+    </ul><br><br>
+    
+    <script>
+        function ajouterForm(){
+            let formulaire = document.getElementById('formulaire');
+            formulaire.innerHTML = `
+                Code : <input type="number" id="code"><br><br>
+                Nom : <input type="text" id="nom"><br><br>
+                Prenom : <input type="text" id="prenom"><br><br>
+                Numero : <input type="number" id="numero"><br><br>
+                Equipe : <input type="text" id="equipe"><br><br>
+                <button type="button" id="sauvegarder" onclick="Sauvegarder()" >Sauvegarder</button>
+                <button type="button" id="annuler" onclick="Annuler()">Annuler</button>
+                <button type="button" id="Vider" onclick="Vider()">Vider</button>
+                <button type="button" id="affiche" >Vider</button>
+            `;
+        }
+
+        let Liste = [];
+
+        function Sauvegarder(){
+            let code = document.getElementById('code').value;
+            let nom = document.getElementById("nom").value;
+            let prenom = document.getElementById('prenom').value;
+            let numero = document.getElementById('numero').value;
+            let equipe = document.getElementById('equipe').value;
+
+            if(code && nom && prenom && numero && equipe){
+                
+                Liste.push([code, nom, prenom, numero,  equipe]);
+
+                let table = document.getElementById('table');
+                let affiche = document.getElementById('affiche');
+
+                affiche.addEventListener('click',function(){
+                    Liste.forEach(itme=>{
+                        table.innerHTML+=`
+                        <tr>
+                            <td>${itme[0]}</td>
+                            <td>${itme[1]}</td>
+                            <td>${itme[2]}</td>
+                            <td>${itme[3]}</td>
+                            <td>${itme[4]}</td>
+                        </tr>
+                        `
+                    })
+                })
+
+               
+
+            } else {
+                alert("Veuillez remplir tous les champs !");
+            }
+        }
+
+        function Annuler(){
+            let formulaire = document.getElementById('formulaire');
+            formulaire.style.display = 'none';
+        }
+
+        function  Vider(){
+            document.getElementById('code').value = '';
+            document.getElementById('nom').value = '';
+            document.getElementById('prenom').value = '';
+            document.getElementById('numero').value = '';
+            document.getElementById('equipe').value = '';
+        }
+
+        function supprimer(){
+            let table = document.getElementById('table');
+            let rows = table.getElementsByTagName('tr');
+            for (let i = 1; i < rows.length; i++) {
+                
+                table.deleteRow(i);
+                   
+                
+            }
+        }
+
+        class Joueur{
+            constructor(Code , Nom , Prenom ,Numero , Equipe){
+                this.Code = Code ;
+                this.Nom = Nom;
+                this.Prenom = Prenom ;
+                this.Numero = Numero ;
+                this.Equipe = Equipe ;
+            }
+        }
+
+        let Joueur1 = new Joueur(1,'el hannach' , 'Aya' ,1234,'ayyaa123');
+        let Joueur2 = new Joueur(2,'Aarab','Jihane',1324,'jihane123');
+        console.log(Joueur1);
+        console.log(Joueur2);
+
+
+        function ListMatch() {
+            
+            var myRequest = new XMLHttpRequest();
+
+            myRequest.onreadystatechange = function() {
+                if (this.readyState === 4 && this.status === 200) {
+                    var data = JSON.parse(this.responseText);
+                    let list = document.getElementById('list');
+                    list.innerHTML = ''; 
+                    for (let i = 0; i < data.data.length; i++) {
+                        list.innerHTML += '<li>' + data.data[i].match + '</li>';
+                    }
+                } 
+            };
+
+            myRequest.open('GET', 'json_rejional_js.json', true);
+            myRequest.send();
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        
+        function Avion(nom){
+            this.nom = nom ;
+            this.estEnVol = false;
+        }
+        Avion.prototype.enVol = function(){
+            if (!this.estEnVol){
+                this.estEnVol = true;
+                console.log(`${this.nom} est maintenant en vol.`);
+            }
+            else{
+                console.log(`${this.nom} est déjà en vol.`);
+            }
+        }
+        Avion.prototype.enAtterrissage= function(){
+            if (this.estEnVol){
+                this.estEnVol = false;
+                console.log(`${this.nom} a atterri.`);
+            }
+            else{
+                console.log(`${this.nom} n'est pas en vol.`);
+            }
+        }
+
+        const avion1 = new Avion("Boeing 747");
+        const avion2 = new Avion("Airbus A380");
+
+
+        avion1.enVol(); 
+        avion1.enAtterrissage(); 
+
+        
+        avion2.enAtterrissage(); 
+        avion2.enVol(); 
+
+    </script>
+</body>
+</html>

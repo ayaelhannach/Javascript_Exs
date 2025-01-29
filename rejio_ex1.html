@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        class vehicule{
+            constructor(marque , modele , PrixLocataire){
+                this.marque = marque ;
+                this.modele = modele ;
+                this.prix = PrixLocataire ;
+
+            }
+            affichage(){
+                console.log(`la marque est :${this.marque} `);
+                console.log(`le modele est : ${this.modele}`);
+                console.log(`le prix est : ${this.prix}`);
+
+            }
+        }
+        class Voiture extends vehicule {
+            constructor(marque , modele , PrixLocataire, nombrePortes){
+                super(marque , modele , PrixLocataire);
+                this.nombrePortes = nombrePortes;
+            }
+            affichage(){
+                super.affichage();
+                console.log(` le nombre des portes est : ${this.nombrePortes}`);
+            }
+        }
+    </script>
+</body>
+</html>

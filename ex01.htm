@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        label{
+            text-transform: capitalize;
+        }
+        .grin{
+            background-color: green;
+        }
+    </style>
+</head>
+<body>
+    <h1>Liste des joueurs</h1>
+    <form action="">
+        <label for="code">code</label><br>
+        <input type="text" name="code" placeholder="code"><br>
+        <label for="nom">nom</label><br>
+        <input type="text" name="nom" placeholder="nom"><br>
+        <label for="prenom">prenom</label><br>
+        <input type="text" name="prenom" placeholder="prenom"><br>
+        <label for="numero">numero</label><br>
+        <input type="text" name="numero" placeholder="numero"><br>
+        <label for="equipe">equipe</label><br>
+        <input type="text" name="equipe" placeholder="equipe"><br>
+        <input type="button" value="Sauvegarder" onclick="Ajouter()">
+        <input type="button" value="Annuler" onclick="return document.forms[0].style.display='none'">
+        <input type="reset" value="Vider">
+    </form><br><br>
+    <table border="" width="60%" class="tabl">
+        <tr>
+            <th>Code</th>
+            <th>Nom</th>
+            <th>Prenom</th>
+            <th>Numéro</th>
+            <th>Equipe</th>
+        </tr>
+    </table><br><br>
+    <button type="button" onclick="ajt()">Ajouter</button>
+    <button type="button" id="spr">Supprimer</button><br><br>
+    <button type="button" onclick="affich()">Afficher liste des matchs</button>
+    <script src="../jqwery_ham.js"></script>
+    <script>
+        let lstC=[];
+        let lstN=[];
+        // document.forms[0].style.display="none";
+        function ajt(){
+            document.forms[0].style.display="block";
+        }
+        function Ajouter(){
+
+            let code =document.querySelector("input[name='code']").value;
+            let nom =document.querySelector("input[name='nom']").value;
+            let prenom =document.querySelector("input[name='prenom']").value;
+            let numero =document.querySelector("input[name='numero']").value;
+            let equipe =document.querySelector("input[name='equipe']").value;
+            const regix=/^[A-Za-z]+$/;
+            if(!code || !numero || !nom || !equipe || !prenom ){
+                alert("tout les champs obligatoire !!");
+                return false;
+            }
+            if(!regix.test(nom)){
+                alert("nom no alphabétique!!");
+                return false;
+            }
+            if(!regix.test(prenom)){
+                alert("prenom no alphabétique!!");
+                return false;
+            }
+            if(isNaN(code)){
+                alert("code no numerique!!");
+                return false;
+            }
+            if(isNaN(numero)){
+                alert("numero no numerique!!");
+                return false
+            }
+            if (lstN.includes(numero)){
+                alert("numero deja siser!!");
+                return false
+            }
+            else{
+                lstN.push(numero);
+            }
+            if (lstC.includes(code)){
+                alert("code deja siser!!");
+                return false
+            }
+            else{
+                lstC.push(code);
+            }
+
+            let table=document.querySelector(".tabl");
+            let row=table.insertRow(-1);
+            row.insertCell(0).innerText=code;
+            row.insertCell(1).innerText=nom;
+            row.insertCell(2).innerText=prenom;
+            row.insertCell(3).innerText=numero;
+            row.insertCell(4).innerText=equipe;
+            // console.log(row)
+
+        }
+        // let table=document.querySelector(".tabl");
+        // let btn=document.getElementById("spr");
+        // table.addEventListener("click",function(e){
+        //     if(e.srcElement.localName==="td"){
+        //         e.srcElement.parentNode.style.backgroundColor="green";
+        //         btn.onclick=function(ele){
+        //             console.log(e.srcElement.parentNode)
+        //             if(confirm("Etes-vous sur de vouloir supprimer ?")){
+        //                 let indxN=lstN.indexOf(e.srcElement.parentNode.cells[3].innerText);
+        //                 // console.log(e.srcElement.parentNode.cells[3].innerText);
+        //                 let indxC=lstC.indexOf(e.srcElement.parentNode.cells[0].innerText);
+        //                 if(indxC!==-1){
+        //                     lstC.splice(indxC,1);
+        //                 }
+        //                 if(indxN!==-1){
+        //                     lstN.splice(indxN,1);
+        //                 }
+        //                 // console.log(table.lastChild.firstChild)
+        //                 table.deleteRow(e.srcElement.parentNode.rowIndex);      
+                        
+        //             }
+        //         }
+        //     }
+        // })
+
+        let table=document.querySelector(".tabl");
+        let btn=document.getElementById("spr");
+        table.addEventListener("click",function(e){
+            if(e.srcElement.localName!=="th"){
+                e.srcElement.parentNode.classList.add('grin');
+            }
+        })
+        btn.onclick=function(){
+            let rows=document.querySelectorAll(".grin");
+            if(rows.length >0){
+                if(confirm("Etes-vous sur de vouloir supprimer ?")){
+                    for(let i of rows){
+                        let indxN=lstN.indexOf(i.cells[3].innerText);
+                        let indxC=lstC.indexOf(i.cells[0].innerText);
+                        if(indxC!==-1){
+                            lstC.splice(indxC,1);
+                        }
+                        if(indxN!==-1){
+                            lstN.splice(indxN,1);
+                        }
+                        console.log(i.remove())
+                    }
+                }
+            }
+        }
+        
+        // // 8
+        // class Joueur{
+        //     constructor(Code_joueur,Nom,Prenom,Numero,Equipe){
+        //         this.Code_joueur=Code_joueur;
+        //         this.Nom=Nom;
+        //         this.Prenom=Prenom;
+        //         this.Numero=Numero;
+        //         this.Equipe=Equipe;
+        //     }
+        // }
+        // // 9
+        // let jou1=new Joueur(1234,"Elazrak","Hamza",10,"MAN");
+        // let jou2=new Joueur(122,"Elazrak","mohamed",7,"RAM");
+
+        function affich(){
+            let uel="https://www.Kora.com/matchs";
+            let http=new XMLHttpRequest;
+            http.onreadystatechange=function(){
+                if(this.status===200 && this.readyState===4){
+                    let data=JSON.parse(this.responseText);
+                    // console.log(data)
+                    let ul=document.createElement("ul");
+                    for(let i in data){
+                        for (let j of data[i]){
+                            let li=document.createElement("li");                         
+                            li.textContent=j.match;
+                            ul.appendChild(li);
+                        }
+                    }
+                    document.body.appendChild(ul);
+                }
+            }
+            http.open("GET","Kora.json",true);
+            http.send()
+        }
+
+    </script>
+</body>
+</html>

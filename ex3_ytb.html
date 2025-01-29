@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        const table =[] ;
+        const n = parseInt(prompt("Entrez combien des nombres : "),10);
+        for(let i=0 ; i<n ;i++){
+            const nombre = parseInt(prompt(`Entrez nombre ${i + 1} : `),10);
+            table.push(nombre);
+        };
+        const k = parseInt(prompt("Entrez un nombre : "),10);
+        console.log(`le nombre entier k est:`+k );
+        function recherche(table){
+            const found = table.includes(k);// includes bax kay9alb 3la lhaja wax kayna wla laa
+            if(found){
+                console.log ( `le nombre k dans le tableau `)
+            }
+            else{
+                console.log ( `le nombre k n'est pas dans le tableau `)
+            }
+            
+            
+        }
+        recherche(table);
+    </script>
+</body>
+</html>

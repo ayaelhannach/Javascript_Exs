@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function CompteBancaire(proprietaire,rasid){
+            this.proprietaire= proprietaire ;
+            this.rasid = 0 ; 
+        }
+
+        CompteBancaire.prototype.debiter = function(montant){
+           if(montant> this.rasid){
+                console.log(`Le compte de ${this.proprietaire} n'a pas assez de fonds pour débiter ${montant} DH.`);
+            } 
+            else {
+                this.rasid -= montant;
+                console.log(`Débit de ${montant} DH du compte de ${this.proprietaire}. Nouveau rasid : ${this.rasid} DH.`);
+           
+            };
+        }
+        CompteBancaire.prototype.crediter = function(montant){
+            
+            this.rasid += montant ;
+            console.log(`${this.rasid}`);
+        }
+
+        CompteBancaire.prototype.decrire = function(){
+            return `Compte de ${this.proprietaire} - rasid: ${this.rasid} DH`;
+        }
+
+
+        
+        const N = parseInt(prompt("Entrez le nombre de comptes bancaires à créer : "), 10);
+
+
+        const comptes = [];
+
+        for (let i = 0; i < N; i++) {
+            const nom = prompt(`Entrez le nom du propriétaire pour le compte ${i + 1} : `);
+            const compte = new CompteBancaire(nom); // إنشاء حساب جديد
+            comptes.push(compte); // إضافة الحساب للمصفوفة
+        }
+
+
+        comptes[0].crediter(100);
+        comptes[1].crediter(200);
+        comptes[0].debiter(50);
+        comptes[1].debiter(300); // قد يظهر خطأ بسبب عدم كفاية الرصيد
+
+
+        comptes.forEach((compte) => {
+            console.log(compte.decrire());
+        });
+
+        comptes.sort((a, b) => b.rasid - a.rasid);
+
+        console.log("\nComptes triés par ordre décroissant des rasids:");
+        comptes.forEach((compte) => {
+            console.log(compte.decrire());
+        });
+
+    </script>
+</body>
+</html>

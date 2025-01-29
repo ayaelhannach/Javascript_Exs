@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .div{
+            border: 1px solid ;
+            width: 500px;
+            height: 290px;
+        }
+        input{
+            width: 360px;
+            margin-left:20px ;
+            height: 25px;
+
+        }
+        label{
+            margin-left: 30px;
+        }
+        button{
+            margin-top: 20px;
+            margin-left: 10px;
+        }
+     
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+            
+        }
+        .div{
+            display:none;
+        }
+        .selected{
+            background-color: red;
+        }
+      
+    </style>
+</head>
+<body>
+    <h1>Liste des joueurs</h1>
+    <div class="div">
+        <label>Code</label><br>
+        <input type="number" id="code" placeholder="Code"><br>
+        <label>Nom</label><br>
+        <input type="text" id="nom" placeholder="nom"><br>
+        <label for="">Prenom</label><br>
+        <input type="text" placeholder="Prenom" id="prenom"><br>
+        <label for="">Numero</label><br>
+        <input type="number" placeholder="Numero" id="Numero"><br>
+        <label >Equipe</label><br>
+        <input type="text" placeholder="Equipe" id="Equipe"><br>
+
+       <button id="Sauvegarder">Sauvegarder</button> 
+       <button id="Annuler">Annuler</button> 
+       <button id="vider">Vider</button>
+    </div>
+    <table id="table">
+        <thead>
+            <tr>
+                <th>Code joueur</th>
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>Numéro</th>
+                <th>Equipe</th>
+            </tr>
+        </thead>
+       
+    </table>
+    <button id="Supprimer">Supprimer</button>
+    <button id="ajouter">Ajouter</button>
+    <button id="affiche">affiche</button>
+ 
+
+    <script>
+        let Sauvegarder = document.getElementById('Sauvegarder');
+        let table = document.getElementById('table');
+        let Annuler = document.getElementById('Annuler');
+        let div = document.getElementsByClassName('div')[0];
+        let ajouter = document.getElementById('ajouter');
+        let vider = document.getElementById('vider');
+        let deleteBtn = document.getElementById('deletePlayerBtn');
+        let Supprimer=document.getElementById('Supprimer');
+        let input=document.querySelectorAll('input');
+        let affiche=document.getElementById('affiche')
+        
+        var liste=[];
+        function valide(){
+            for(let i=0 ;i<input.length;i++){
+                if(input[i].value==''){
+                    alert('Tu dois remplire tous les champs')
+                    return false
+                }
+                else{
+                    return true
+                }
+            }
+        }
+        // Event listener for 'Sauvegarder' button
+        Sauvegarder.addEventListener('click', function() {
+            
+           if(valide()){
+            
+            let code = document.getElementById('code').value;
+            let nom = document.getElementById('nom').value;
+            let prenom = document.getElementById('prenom').value;
+            let Numero = document.getElementById('Numero').value;
+            let Equipe = document.getElementById('Equipe').value;
+            liste.push([code,nom,prenom,Numero,Equipe])
+            alert('operation est Termoner')
+           }
+
+        });
+
+        // Event listener for 'Ajouter' button
+        ajouter.addEventListener('click', function() {
+            div.style.display = 'block';
+        });
+
+        // Event listener for 'Annuler' button
+        Annuler.addEventListener('click', function() {
+            div.style.display = 'none';
+        });
+
+        // Event listener for 'Vider' button
+        vider.addEventListener('click', function() {
+            document.getElementById('code').value = '';
+            document.getElementById('nom').value = '';
+            document.getElementById('prenom').value = '';
+            document.getElementById('Numero').value = '';
+            document.getElementById('Equipe').value = '';
+        });
+        
+        affiche.addEventListener('click',function(){
+            liste.forEach(itme=>{
+                table.innerHTML+=`
+                <tr>
+                    <td>${itme[0]}</td>
+                    <td>${itme[1]}</td>
+                    <td>${itme[2]}</td>
+                    <td>${itme[3]}</td>
+                    <td>${itme[4]}</td>
+                </tr>
+                `;
+            })
+        })
+        Supprimer.addEventListener('click', function() {
+            let selectedRow = table.getElementsByClassName('selected')[0];
+            if (selectedRow) {
+                if (confirm("Voulez-vous vraiment supprimer ce joueur?")) {
+                    selectedRow.remove();
+                }
+            } else {
+                alert("Veuillez sélectionner un joueur à supprimer.");
+            }
+        });
+
+       // Event listener for selecting a row
+        table.addEventListener('click', function(event) {
+            let selectedRow = event.target.parentNode;
+            if (selectedRow.tagName === 'TR') {
+                let rows = table.rows;
+                for (let i = 0; i < rows.length; i++) {
+                    rows[i].classList.remove('selected');
+                }
+                selectedRow.classList.add('selected');
+            }
+        });
+
+        class joueur{
+            constructor(code,nom, prenom,Numero,Equipe){
+                this.code=code;
+                this.nom=nom;
+                this.prenom=prenom;
+                this.Numero=Numero;
+                this.Equipe=Equipe;
+
+            }
+        }
+        let objets1=new joueur(2,'akka','souhaila',3,'dev105');
+        let objets2=new joueur(3,'almi','nihad',5,'dev123');
+        console.log(objets1);
+        console.log(objets2);
+
+        
+    </script>
+</body>
+</html>
+
+

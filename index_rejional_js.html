@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    .req{
+        display: none;
+    }
+</style>
+<body>
+    <div class="content">
+        <div class="console">
+            <h1>Commande es consoles</h1>
+            <a href="#BlogS"></a>
+            <select id="console">
+                <!-- <option value="">choisire une console</option> -->
+            </select>
+            <h3 class="req" style="color: red;">Doit choisire une console</h3>
+
+             <h3>Qauntite</h3>
+             <input id="quantite" type="number">
+             <h3 class="req" style="color: red;">Doit etre entre 1 et 20</h3>
+             <button id="ajouter">ajouter au panier</button>
+             <h1>panier de commandes</h1>
+             <table style="text-align: CENTER;">
+                <tr>
+                    <th>References</th>
+                    <th>prix</th>
+                    <th>quantite</th>
+                    <th>images</th>
+                    <th>actions</th>
+                </tr>
+             </table>
+             <div style="display: flex;" class="totalht">
+                <h2>Total HT</h2>
+                <h2 id="ht">00 dh</h2>
+             </div>
+             <div style="display: flex;" class="totalht">
+                <h2>Total TTC</h2>
+                <h2 id="ttc">00 dh</h2>
+             </div>
+             <button>Commander</button>
+        </div>
+      
+    </div>
+    <script src="script2.js"></script>
+</body>
+</html>

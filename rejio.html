@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .red {
+            color: red;
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+    <h1>Formulaire d'inscription</h1><br><br>
+    <form id="formulaire">
+        Nom : <input type="text" name="nom" id="nom" ><br><br>
+        Prenom : <input type="text" name="prenom" id="prenom"><br><br>
+        Age : <input type="date" name="age" id="age"><br><br>
+        Sexe : <input type="radio" name="sexe" id="feminin" value="Feminin"> Feminin
+                <input type="radio" name="sexe" id="Masculin" value="Masculin"> Masculin<br><br>
+
+        Pays : <select id="selection">
+                <option>France</option>
+                <option>Espagne</option>
+                <option>Belgique</option>
+        </select><br><br>
+        Discipline : <input type="checkbox" id="firstDis" name="Discipline" value="Marathon"> Marathon
+                        <input type="checkbox" id="secondeDis" name="Discipline" value="Natation"> Natation<br><br>
+                        <input type="checkbox" id="thirdDis" name="Discipline" value="Sprint"> Sprint
+                        <input type="checkbox" id="fourthDis" name="Discipline" value="Saut"> Saut<br><br>
+        <button type="button" id="Enregistrer" onclick="ValidForm()">Enregistrer</button><br><br>
+    </form>
+    <table border="1" id="table"  >
+        <tr>
+            <th>Nom</th>
+            <th>Prenom</th>
+            <th>Age</th>
+            <th>Sexe</th>
+            <th>Pays</th>
+            <th>Discipline</th>
+            <th>Action</th>
+        </tr>
+    </table>
+    <script>
+        
+
+        function ValidForm() {
+            var expReg = /^[A-Za-z]+$/;
+            let nom = document.getElementById('nom').value;
+            let prenom = document.getElementById('prenom').value;
+            let age = document.getElementById('age').value;
+            let sexe = document.querySelector('input[name="sexe"]:checked');
+            let pays = document.getElementById('selection').value;
+            let Discipline = document.getElementsByName('Discipline');
+            let DisciplineListe = [];
+
+            Discipline.forEach((checkbox) => {
+                if (checkbox.checked) {
+                    DisciplineListe.push(checkbox.value);
+                }
+            });
+
+            if (!expReg.test(nom) || !expReg.test(prenom)) {
+                alert('Nom et prénom doivent être alphabétiques');
+                return;
+            }
+
+            if (nom === "" || prenom === "" || age === "" || !sexe || pays === "" || DisciplineListe.length === 0) {
+                alert('Tous les champs doivent être remplis');
+                return;
+            }
+
+            let table = document.getElementById('table');
+            let row = table.insertRow(-1);
+            row.insertCell(0).innerText = nom;
+            row.insertCell(1).innerText = prenom;
+            row.insertCell(2).innerText = age;
+            row.insertCell(3).innerText = sexe.value;
+            row.insertCell(4).innerText = pays;
+            row.insertCell(5).innerText = DisciplineListe.join(", ");
+            let action = row.insertCell(6);
+            let deleteButton = document.createElement('button');
+            deleteButton.innerText = 'Supprimer';
+            deleteButton.addEventListener('click' , function(){
+                table.deleteRow(row.rowIndex);
+            }) ;
+            action.appendChild(deleteButton);
+
+            row.addEventListener('mouseover', function () {
+                row.classList.add('red');
+            });
+
+            row.addEventListener('mouseout', function () {
+                row.classList.remove('red');
+            });
+
+
+            let EditeButton = document.createElement('button');
+            EditeButton.innerText = 'Edit';
+            EditeButton.onclick = function () {
+                editRow(row);
+            };
+            action.appendChild(EditeButton);
+            
+        }
+
+        function editRow(row) {
+            document.getElementById('nom').value = row.cells[0].innerText;
+            document.getElementById('prenom').value = row.cells[1].innerText;
+            document.getElementById('age').value = row.cells[2].innerText;
+            let sexeValue = row.cells[3].innerText;
+            document.querySelector(`input[name="sexe"][value="${sexeValue}"]`).checked = true;
+            document.getElementById('selection').value = row.cells[4].innerText;
+            let disciplineValues = row.cells[5].innerText.split(', ');
+            document.getElementsByName('Discipline').forEach((checkbox) => {
+                checkbox.checked = disciplineValues.includes(checkbox.value);
+            });
+            
+            row.remove();
+        }
+        function exportToJSON() {
+            let table = document.getElementById('table');
+            let rows = table.rows;
+            let data = [];
+
+            for (let i = 1; i < rows.length; i++) { 
+                let cells = rows[i].cells;
+                let row = {
+                    nom: cells[0].innerText,
+                    prenom: cells[1].innerText,
+                    age: cells[2].innerText,
+                    sexe: cells[3].innerText,
+                    pays: cells[4].innerText,
+                    discipline: cells[5].innerText
+                };
+                data.push(row);
+            }
+
+            let json = JSON.stringify(data, null, 2);
+            console.log(json);
+            return json;
+        }
+    </script>
+</body>
+</html>

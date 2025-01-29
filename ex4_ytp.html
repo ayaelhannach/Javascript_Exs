@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        <label for="input1">N1:</label>
+        <input type="text" id="input1">
+    </div>
+    <div>
+        <label for="input2">N2:</label>
+        <input type="text" id="input2">
+    </div>
+    <div>
+        <label for="result">La somme:</label>
+        <input type="text" id="result">
+    </div>
+    <button id="sommebtn" onclick="calculSomme()">Somme</button>
+    <script>
+        
+        
+        function calculSomme(){
+            let n1 = parseFloat(document.getElementById("input1").value );
+            let n2 = parseFloat(document.getElementById("input2").value );
+            let n3 = document.getElementById("result"); 
+                
+               
+            n3.value = n1 +n2 ;
+            
+        }
+        calculSomme()
+    </script>
+</body>
+</html>

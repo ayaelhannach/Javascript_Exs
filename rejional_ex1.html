@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button  id="button" onclick="afficher()" onmouseover="changer()" onmouseleave="revenir()">
+        Cliquez ici !
+    </button>
+    <p id="message">
+    </p><br><br>
+    <fieldset>
+        <h1>Liste se taches a faire</h1><br><br>
+        <input type="text" placeholder="Nouvelle taches" id="saisirTache">
+        <button type="submit" id="ajouter" onclick="ajouterTache()">Ajouter</button>
+        <ul id="listes">
+            
+        </ul>
+
+    </fieldset>
+
+    <script>
+        function afficher(){
+            var afficherMessage = document.getElementById('message');
+            afficherMessage.innerHTML ='vous avez clique sur le button';
+        }
+        function changer(){
+            var changer = document.getElementById('button');
+            changer.style.background ='red';
+        }
+        function revenir(){
+            var changer = document.getElementById('button');
+            changer.style.backgroundColor ='initial';
+        }
+
+        function ajouterTache(){
+            let input = document.getElementById('saisirTache').value;
+            let li = document.createElement('li');
+            let add= li.innerHTML = "<input type='checkbox' onclick='checked()'> "+ input ;
+            let listes = document.getElementById('listes');
+            listes.appendChild(li); 
+        }
+        function checked(){
+           
+        }
+
+    </script>
+</body>
+</html>

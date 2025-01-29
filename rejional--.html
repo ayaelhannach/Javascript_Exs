@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .error {
+            border: 1px solid red;
+        }
+        .success {
+            color: green;
+        }
+        .failure {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <fieldset>
+        <table border="1" id="table">
+            <tr>
+                <th>Module</th>
+                <th>Note</th>
+                <th>Appreciation</th>
+            </tr>
+            <tr>
+                <td>A</td>
+                <td><input type="text" class="note" id="A"></td>
+                <td class="Appreciation" id="AppA"></td>
+            </tr>
+            <tr>
+                <td>B</td>
+                <td><input type="text" class="note" id="B"></td>
+                <td class="Appreciation" id="AppB"></td>
+            </tr>
+            <tr>
+                <td>C</td>
+                <td><input type="text" class="note" id="C"></td>
+                <td class="Appreciation" id="AppC"></td>
+            </tr>
+            <tr>
+                <td>D</td>
+                <td><input type="text" class="note" id="D"></td>
+                <td class="Appreciation" id="AppD"></td>
+            </tr>
+        </table>
+        <button type="submit" class="verifier" onclick="afficherAppreciation()">Verifier</button>
+        <button type="submit" class="generer" onclick="generer()">Generer</button>
+        <p id="result"></p>
+    </fieldset>
+    <script>
+        function afficherAppreciation(){
+            let notes = document.querySelectorAll('.note');
+            let Appreciations = document.querySelectorAll('.Appreciation');
+
+            notes.forEach((noteElement, index) => {
+                let note = parseFloat(noteElement.value);
+                let appreciationElement = Appreciations[index];
+
+                if(note < 10){
+                    appreciationElement.textContent = 'Faible';
+                }
+                else if (note >= 10 && note < 14) {
+                    appreciationElement.textContent = 'Moyen';
+                }
+                else if (note >= 14 && note < 16) {
+                    appreciationElement.textContent = 'Bien';
+                }
+                else if (note >= 16 && note <= 20) {
+                    appreciationElement.textContent = 'Très Bien';
+                }
+                else{
+                    appreciationElement.textContent = '';
+                    noteElement.classList.add('error');
+                }
+            });
+        }
+
+        function generer() {
+            let notes = document.querySelectorAll('.note');
+            let coefficients = [2, 3, 1, 4];
+            let total = 0;
+            let coefficientSum = 10;
+            let allValid = true;
+
+            notes.forEach((noteElement, index) => {
+                let note = parseFloat(noteElement.value);
+
+                if (isNaN(note) || note < 0 || note > 20) {
+                    noteElement.classList.add('error');
+                    allValid = false;
+                } else {
+                    noteElement.classList.remove('error');
+                    total += note * coefficients[index];
+                }
+            });
+
+            if (allValid) {
+                let moyenne = total / coefficientSum;
+                let resultElement = document.getElementById('result');
+
+                if (moyenne >= 10) {
+                    resultElement.textContent = `Moyenne: ${moyenne.toFixed(2)} - Admis`;
+                    resultElement.className = 'success';
+                } else {
+                    resultElement.textContent = `Moyenne: ${moyenne.toFixed(2)} - Non Admis`;
+                    resultElement.className = 'failure';
+                }
+            } else {
+                alert("Veuillez entrer des notes valides pour tous les modules (entre 0 et 20).");
+            }
+        }
+    </script>
+</body>
+</html>

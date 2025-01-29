@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Notes des stagiaires</h1>
+    <form id="formulaire">
+        <fieldset>
+            <legend>Nouvelle ligne</legend>
+            <table>
+                <tr>
+                    <td>ID :</td>
+                    <td>
+                        <input type="text" id="id">
+                        <button type="button" id="lire">Lire</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Nom :</td>
+                    <td>
+                        <input type="text" placeholder="Nom du stagiaire" id="nom">
+                    </td>
+                </tr>
+                <tr>
+                    <td>Filiere :</td>
+                    <td>
+                        <input type="radio" name="filiere" value="TDI" id="tdi">TDI
+                        <input type="radio" name="filiere" value="TDM" id="tdm">TDM
+                        <input type="radio" name="filiere" value="TRI" id="tri">TRI
+                    </td>
+                </tr>
+                <tr>
+                    <td>Note :</td>
+                    <td>
+                        <input type="text" id="note">
+                    </td>
+                </tr>
+            </table><br><br>
+            <button type="submit" id="ajouter">Ajouter</button>
+            <button type="reset" >Vider</button>
+        </fieldset>
+    </form><br><br>
+    
+    <h1>Liste des notes</h1><br><br>
+    <table border="1" id="table">
+        <tr>
+            <th>ID</th>
+            <th>Nom</th>
+            <th>Note</th>
+            <th>Filiere</th>
+            <th>Gestion</th>
+        </tr>
+    </table>
+    
+    <div id="max-note"></div> 
+
+    <script>
+        function valider() {
+            let id = document.getElementById('id').value;
+            let nom = document.getElementById('nom').value;
+            let input = document.querySelector('input[name="filiere"]:checked');
+            let note = document.getElementById('note').value;
+
+            if (!id || !nom || !input || !note) {
+                alert('Vous devez remplir tous les champs');
+                return false;
+            }
+
+            return true;
+        }
+
+        document.getElementById('formulaire').addEventListener('submit', function(event) {
+            event.preventDefault(); 
+
+            if (!valider()) {
+                return;
+            }
+
+            let id = document.getElementById('id').value;
+            let nom = document.getElementById('nom').value;
+            let input = document.querySelector('input[name="filiere"]:checked').value;
+            let note = document.getElementById('note').value;
+
+            let table = document.getElementById('table');
+            let row = table.insertRow(-1);
+
+            row.insertCell(0).innerHTML = id;
+            row.insertCell(1).innerHTML = nom;
+            row.insertCell(2).innerHTML = note;
+            row.insertCell(3).innerHTML = input;
+
+            if (parseFloat(note) < 10) {
+                row.cells[2].style.color = 'red';
+            } else {
+                row.cells[2].style.color = 'green';
+            }
+
+            let supp = row.insertCell(4);
+            let deleteButton = document.createElement('button');
+            deleteButton.textContent = 'supprimer';
+
+            deleteButton.addEventListener('click', function() {
+                row.remove();
+                actualiserNoteMax(); // Update max note after deletion
+            });
+            supp.appendChild(deleteButton);
+
+            actualiserNoteMax(); // Update max note after addition
+        });
+
+        lire.addEventListener('click',function(){
+            let id= document.getElementById('id').value;
+            let table=document.getElementById('table');
+            let tr =document.getElementsByTagName('tr');
+            for(let i= 1 ;i<tr.length;i++){
+                let cells=tr[i].getElementsByTagName('td');
+                if(cells[0].textContent==id){
+                    document.getElementById('nom').value=cells[1].textContent;
+                    document.querySelector(input[name="Filiere"][value="${cells[2].textContent}  "]).checked=true;
+                    document.getElementById('note').value=cells[3].textContent;
+                    break;
+                }
+            }
+        });
+
+        function actualiserNoteMax() {
+            let rows = document.querySelectorAll('#table tr');
+            let maxNote = 0;
+
+            for (let i = 1; i < rows.length; i++) {
+                let cells = rows[i].getElementsByTagName('td');
+                if (cells.length > 3) {
+                    let note = parseFloat(cells[2].textContent); 
+                    if (!isNaN(note) && note > maxNote) {
+                        maxNote = note;
+                    }
+                }
+            }
+
+            document.getElementById('max-note').textContent = `Note maximale : ${maxNote}`;
+        }
+    </script>
+</body>
+</html>

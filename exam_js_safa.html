@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    #error-message {
+        display: none;
+        color: blueviolet;
+    }
+</style>
+<body onload="loadClients()">
+    <h1>Achat</h1>
+    <div id="error-message">Veuillez remplir les champs avec border rouge</div>
+   
+    <form id="achatForm">
+        <table>
+            <tr>
+                <th>Client</th>
+                <td>
+                    <select id="client" required>
+                        <option value="">Sélectionner un client</option>
+                    </select><br>
+                </td>
+                <th>Article</th>
+                <td><select id="article" required>
+                    <option value="">Sélectionner un article</option>
+                </select><br></td>
+            </tr>
+            <tr>
+                <th>Quantité</th>
+                <td><input type="text" id="quantity" required><br></td>
+                <th>Id Achat</th>
+                <td><input type="text" id="idAchat" disabled><br></td>
+            </tr>
+            <tr>
+                <th>Prix Unitaire</th>
+                <td><input type="text" id="prixUnitaire" disabled><br></td>
+                <th>Montant</th>
+                <td><input type="text" id="montant" disabled><br></td>
+            </tr>
+        </table>
+        <button type="button" id="ajouterAchat">Ajouter achat</button>
+        <button type="button" style="margin-left: 420px;" id="AchatArticle">Achats de l'article</button>
+        <button type="button" id="achatClientButton">Achats Du Client</button>
+    </form>
+
+    <h2>Liste des achats</h2>
+    <table id="achatsTable" border="1">
+        <thead>
+            <tr>
+                <th>Id Achat</th>
+                <th>Client</th>
+                <th>Article</th>
+                <th>Quantité</th>
+                <th>Prix Unitaire</th>
+                <th>Montant</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <h2>Total des achats: <span id="totalAchats">0</span></h2>
+    <script>
+        
+        let ajouterAchat = document.getElementById('ajouterAchat');
+
+        function loadClients() {
+            var clients = ["Ali", "Karima", "Mohammed", "Mariam", "Hassan"];
+            let clientSelect = document.getElementById('client');
+            for (let i = 0; i < clients.length; i++) {
+                clientSelect.innerHTML += '<option >' + clients[i] + '</option>';
+            }
+        }
+
+
+        var articles = [
+            {ref: "a1", price: 100, stock: 100},
+            {ref: "a2", price: 20, stock: 100},
+            {ref: "a3", price: 30, stock: 100},
+            {ref: "a4", price: 500, stock: 100}
+        ];
+        var articleSelect = document.getElementById('article');
+            articleSelect.innerHTML = "";
+            for (let i = 0; i < articles.length; i++) {
+                articleSelect.innerHTML += '<option>' + articles[i].ref + '</option>';
+            }
+
+        ajouterAchat.addEventListener('click', function() {
+            let articleSelectElem = document.getElementById('article');
+            let clientSelectElem = document.getElementById('client');
+            let quantityElem = document.getElementById('quantity');
+            let error = document.getElementById('error-message');
+            let prixUnitaireElem = document.getElementById('prixUnitaire');
+            let montantElem = document.getElementById('montant');
+            let idAchatElem = document.getElementById('idAchat');
+            let achatsTable = document.getElementById('achatsTable');
+
+            let articleSelect = articleSelectElem.value;
+            let clientSelect = clientSelectElem.value;
+            let quantity = quantityElem.value;
+
+            if(articleSelect === '' || clientSelect === '' || quantity === '') {
+                error.style.display = 'block';
+                articleSelectElem.style.border = '1px solid red';
+                clientSelectElem.style.border = '1px solid red';
+                quantityElem.style.border = '1px solid red';
+                return false;
+            } else {
+                error.style.display = 'none';
+                articleSelectElem.style.border = '';
+                clientSelectElem.style.border = '';
+                quantityElem.style.border = '';
+            }
+            
+            if(isNaN(quantityElem.value)) {
+                alert("Le quantity doivent être uniquement des nombre.");
+                return false;
+            }
+
+
+
+            let maxId = 0;
+            let rows = achatsTable.rows;
+            for(let i = 0; i < rows.length; i++) {
+                let id = parseInt(rows[i].cells[0].innerText);
+                if(id > maxId) {
+                    maxId = id;
+                }
+            }
+            let newId = maxId + 1;
+            idAchatElem.value = newId;
+
+
+
+
+                        
+                let prixUnitaire;
+                for (let i = 0; i < articles.length; i++) {
+                    if (articles[i].ref === articleSelect) {
+                        prixUnitaire = articles[i].price;
+                        break;
+                    }
+                }
+
+                prixUnitaireElem.value = prixUnitaire;
+                let montant = prixUnitaire * quantity;
+                montantElem.value =  montant;
+
+
+            
+
+            let newRow = achatsTable.insertRow();
+            newRow.insertCell(0).innerText = newId;
+            newRow.insertCell(1).innerText = clientSelect;
+            newRow.insertCell(2).innerText = articleSelect;
+            newRow.insertCell(3).innerText = quantity;
+            newRow.insertCell(4).innerText = prixUnitaire;
+            newRow.insertCell(5).innerText = montant;
+
+            let totalAchatsElem = document.getElementById('totalAchats');
+            totalAchatsElem.innerText = parseFloat(totalAchatsElem.innerText) + montant;
+        });
+    </script>
+</body>
+</html>

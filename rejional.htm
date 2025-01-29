@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Commander les TVs</h1><br><br>
+    <form id="formulaire">
+        Tvs : <select id="selection" onload = "remplirTvs()">
+            <option disabled selected>Choisir un TV</option>
+        </select><br><br>
+        Quantite : <input type="text" id="quantite"><br><br>
+        <button type="submit" id="ajouter">Ajouter</button><br><br>
+    </form>
+    <h1>Panier de commandes</h1><br<br>
+    <table border="1" id="table">
+        <tr>
+            <th>Reference</th>
+            <th>Quantite</th>
+            <th>Image</th>
+            <th>Action</th>
+        </tr>
+    </table><br><br>
+    <p>Total HT:<span id="HT" >     00 DHS</span></p>
+    <p>Total TTC:<span id="TTC" >00 DHS</span></p><br>
+    <button type="submit">Commander</button>
+    <script>
+        function valider(){
+            let selection = document.getElementById('selection');
+            let quantite =document.getElementById('quantite');
+            if(!selection){
+                alert('un tv doit etre selectionnee');
+                return false ;
+            }
+            if(isNaN(quantite) || quantite <1 || quantite >10){
+                alert('quantite doit etre un entier entre 1 et 10');
+                return false ;
+            }
+            return true ;
+
+        }
+        function remplirTvs(){
+            
+            var tvs = [
+                {nom: 'SAMSUNG QLED QE65Q80AA', prix: 17999, taille: 65, image: "images/img1.png"},
+                {nom: 'TCL QLED 55C825', prix: 6100, taille: 42, image: 'images/img2.png'},
+                {nom: 'SONY OLED XR-75X90J', prix: 25000, taille: 52, image: 'images/img3.png'},
+                {nom: 'LG OLED 77C1PVA', prix: 9000, taille: 65, image: 'images/img4.png'}
+            ];
+
+            for(let i=0 ; i<tvs.length ; i++) {
+                document.getElementById('selection').innerHTML+='<option>'+tvs[i].nom+'</option>';
+            }
+
+        }
+        function AjouterAuPanier(){
+            
+        }
+    </script>
+</body>
+</html>

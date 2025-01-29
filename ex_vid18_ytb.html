@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    th{
+        border: 2px solid black;
+    }
+</style>
+<body>
+    <div  id="tableau" ></div>
+    <script>
+        var tableau = document.getElementById('tableau');
+        var table =document.createElement('table');
+            table.style.border = '2px solid black';
+            tableau.appendChild(table);
+        var tr1 = document.createElement("tr");
+            table.appendChild(tr1);
+        var th1 = document.createElement('th');
+            th1.textContent= 'ID';
+            tr1.appendChild(th1);
+        var th2 = document.createElement('th')
+            th2.textContent = 'Nom';
+            tr1.appendChild(th2);
+        var th3 = document.createElement('th')
+            tr1.appendChild(th2);
+
+        var tr2 = document.createElement('tr');
+            table.appendChild(tr2);
+        var th4 = document.createElement('th');
+            th4.textContent= 1111;
+            tr2.appendChild(th4);
+
+        var th5 = document.createElement('th');
+            th5.textContent= 'ELHAKIMI';
+            tr2.appendChild(th5);
+        
+
+        
+
+        
+    </script>
+</body>
+</html>

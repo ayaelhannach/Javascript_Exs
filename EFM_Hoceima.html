@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liste des stagiaires</title>
+    <style>
+        .note-rouge {
+            color: red;
+        }
+        .note-vert {
+            color: green;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="margin-left: 100px;">Notes des stagiaires</h1>
+    <form id="formulaire">
+        <fieldset style="width: 60%; margin-left: 100px;">
+            <legend>Nouvelle ligne :</legend>
+            <table id="tableau">
+                <tr>
+                    <td>ID :</td>
+                    <td><input type="text" id="id" required></td>
+                    <td><button type="button" id="lire">Lire</button></td>
+                </tr>
+                <tr>
+                    <td>Nom :</td>
+                    <td><input type="text" id="nom" placeholder="Nom du stagiaire" required></td>
+                </tr>
+                <tr>
+                    <td>Filiere :</td>
+                    <td>
+                        <input type="radio" name="filiere" value="TDI">TDI
+                        <input type="radio" name="filiere" value="TDM">TDM
+                        <input type="radio" name="filiere" value="TRI">TRI
+                    </td>
+                </tr>
+                <tr>
+                    <td>Note :</td>
+                    <td><input type="text" id="note" required></td>
+                </tr>
+            </table>
+            <br> 
+            <button id="ajouter" type="submit">Ajouter la note</button>
+        </fieldset>
+    </form>
+
+    <h1 style="margin-left: 100px;">Liste des notes</h1>
+    <table border="2px" id="table" style="width: 60%; margin-left: 100px;">
+        <tr>
+            <th>ID</th>
+            <th>NOM</th>
+            <th>Note</th>
+            <th>Filiere</th>
+            <th>Gestion</th>
+        </tr>
+        
+    </table>
+    <script>
+        function validerFormulaire() {
+            let id = document.getElementById('id').value;
+            let nom = document.getElementById('nom').value;
+            let note = document.getElementById('note').value;
+
+            if (id.trim() === '' || nom.trim() === '' || note.trim() === '') {
+                alert("Tous les champs (ID, NOM, NOTE) sont obligatoires.");
+                return false;
+            }
+
+            if (isNaN(note) || parseFloat(note) < 0 || parseFloat(note) > 20) {
+                alert("La note doit être un nombre entre 0 et 20.");
+                return false;
+            }
+
+            return true;
+        }
+        document.getElementById('formulaire').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            if (!validerFormulaire()) {
+                return; 
+            }
+
+            let id = document.getElementById('id').value;
+            let nom = document.getElementById('nom').value;
+            let note = parseFloat(document.getElementById('note').value);
+
+            let selectedFiliere = document.querySelector('input[name="filiere"]:checked')?.value;
+
+            let table = document.getElementById('table');
+            let row = table.insertRow(-1);
+
+            row.insertCell(0).innerHTML = id;
+            row.insertCell(1).innerHTML = nom;
+            let cell3 = row.insertCell(2);
+            cell3.innerHTML = note;
+            cell3.className = note < 10 ? "note-rouge" : "note-vert";
+
+            row.insertCell(3).innerHTML = selectedFiliere;
+
+            let deleteButton = document.createElement("button");
+            deleteButton.textContent = "Supprimer";
+            deleteButton.addEventListener("click", function() {
+                table.deleteRow(row.rowIndex); // حذف الصف
+            });
+            row.insertCell(4).appendChild(deleteButton); // إضافة زر الحذف
+        });
+        
+        let lire = document.getElementById('lire');
+        lire.addEventListener('click', function() {
+            let id = document.getElementById('id').value;
+            let table = document.getElementById('table');
+            let tr = table.rows;
+            for (let i = 1; i < tr.length; i++) { 
+                let cells = tr[i].cells;
+                if (cells[0].textContent == id) {
+                    document.getElementById('nom').value = cells[1].textContent;
+                    let filiereRadio = document.querySelector(`input[name="Filiere"][value="${cells[2].textContent}"]`).checked = true;
+                    document.getElementById('note').value = cells[3].textContent;
+                    break;
+                }
+            }
+        });
+
+    </script>
+</body>
+</html>

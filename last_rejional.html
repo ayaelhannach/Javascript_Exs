@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <fieldset>
+        <h1>Inscription des adherents</h1>
+        Activite : <select id="activite">
+            <option></option>
+        </select><br>
+        Date d'ouverture : <input type="date" id="dateOuv"><br><br>
+        Duree de participation : <input type="number" id="duree"><br><br>
+        CIN : <input type="text" id="cin" ><br><br>
+        Nom : <input type="text" id="nom"><br><br>
+        Prenom : <input type="text" id="prenom"><br><br>
+        Telephone : <input type="number" id="telephone"><br><br>
+        <button type="button" id="ajouter" onclick="ajouterM()">Ajouter Membre</button>
+        <button type="button" id="afficher">Afficher Membres</button><br><br>
+        <button type="button" id="Enregistrer">Enregistrer la liste Membres</button><br>
+    </fieldset>
+    <script>
+        function ajouterM() {
+            let duree = document.getElementById('duree').value;
+            if (duree < 16 || duree > 27) {
+                alert('La duree de participation doit etre entre 16 et 27');
+                return;
+            }
+
+            let cin = document.getElementById('cin').value;
+            let regCin = /^[A-Z]{1,2}\d{5,6}$/;
+            if (!regCin.test(cin)) {
+                alert('CIN doit commencer par une ou deux lettres majuscules, suivi de 5 ou 6 chiffres');
+                return;
+            }
+
+            let nom = document.getElementById('nom').value;
+            let prenom = document.getElementById('prenom').value;
+            let regNomPr = /^[A-Za-z]+$/;
+            if (!regNomPr.test(nom) || !regNomPr.test(prenom)) {
+                alert('Nom et prenom doivent etre alphabetiques');
+                return;
+            }
+
+            // Additional code to add the member (e.g., pushing to an array or displaying the member)
+            alert('Membre ajouté avec succès!');
+        }
+    </script>
+</body>
+</html>

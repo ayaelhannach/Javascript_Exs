@@ -1,0 +1,48 @@
+q<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <select id="select">
+    </select>
+    <div id="div"></div> <!-- تأكد أن المعرف هنا هو "div" -->
+    <button id="ajouter">ajouter</button>
+   
+    <script>
+        let ajouter = document.getElementById('ajouter');
+        let div = document.getElementById('div'); // تأكد من تطابق المعرف هنا
+        let select = document.getElementById('select');
+
+        // تأكد أن مسارات الصور صحيحة وتوجد في المكان الصحيح
+        const Livresdata = [
+            {"ISBN":"01234","titre":"Langage C","image":"langagec.jpg","prix":150},
+            {"ISBN":"56789","titre":"Programmation Javascript","image":"javascript.jpg","prix":250},
+            {"ISBN":"11778","titre":"Laravel","image":"laravel.jpg","prix":200}
+        ];
+
+        // تأكد من إضافة الخيارات إلى القائمة المنسدلة بشكل صحيح
+        Livresdata.map((x) => {
+            select.innerHTML += <option value="${x.titre}">${x.titre}</option>;
+        });
+
+        // حدث التغيير على العنصر select
+        select.addEventListener('change', () => {
+            div.innerHTML = ''; // تفريغ محتوى div
+            let selectedTitle = select.value;
+            Livresdata.map(x => {
+                if (x.titre === selectedTitle) {
+                    div.innerHTML += `
+                        <h1>${x.titre}</h1>
+                        <img src='${x.image}' style='width: 60px;'>
+                        <p>${x.prix}</p>
+                    `;
+                }
+            });
+        });
+    </script>
+</body>
+</html>

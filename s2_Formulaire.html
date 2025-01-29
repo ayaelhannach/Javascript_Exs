@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+            function afficher(){
+                //document.getElementById('div1').style.display="block"
+                document.getElementById('div1').style="display:block"
+                // var enom=document.getElementsByName('nom')[0].value
+                // var eprenom=document.getElementsByName('prenomID')[0].value
+                var exp=document.getElementById('div1').innerHTML
+                var enom=document.getElementById('nomID').value
+                var eprenom=document.getElementById('prenomID').value
+
+                //------------
+                var fil=""
+                for(var elt of document.getElementsByName('filiere')){
+                    if(elt.checked && elt.value=="dev"){
+                        fil="DEV DIGITAL"
+                    }
+                    else if(elt.checked && elt.value=="id"){
+                        fil="INFRA DIGITAL"
+                    }
+                    else if(elt.checked && elt.value=="info"){
+                        fil="INFOGRAPHIE"
+                    }   
+                }
+            //--------------
+
+            var comptences="ses competences:"
+            var c=0
+            for(var elt of document.getElementsByName('comp')){
+                if(elt.checked){
+                    comptences+=" "+elt.value
+                    c++
+                }
+            }
+            if(c==0) comptences="Aucune competence!"
+            //--------------------------------
+            var vil=document.getElementById('villeID').value
+            // for(var elt of document.getElementsByName("ville")){
+            //     if(elt.selected){
+            //         vil=elt.value
+            //     }
+            // }
+
+
+            exp+="<br>"+`Bonjour ${enom} ${eprenom}| ${fil} | ${comptences} |${vil}`
+                // alert(exp)
+             document.getElementById('div1').innerHTML=`<b>${exp}</b>`            }
+    </script>
+</head>
+<body>
+    <form action="" name="f1">
+        <label>NOM</label> :<input type="text" name="nom" id="nomID"> <br>
+        PRENOM: <input type="text" name="prenom" id="prenomID"> <br>
+        FLIERE : <input type="radio" name="filiere" id="devID" value="dev" checked>DEV
+                 <input type="radio" name="filiere" id="idID" value="id">ID 
+                 <input type="radio" name="filiere" id="idID" value="info">INFO <br>
+        COMPETENCES:
+                <input type="checkbox" name="comp" id="" value="HTML">HTML
+                <input type="checkbox" name="comp" id="" value="JAVASCRIPT">JAVASCRIPT
+                <input type="checkbox" name="comp" id="" value="CSS">CSS <br>
+        VILLE:
+            <select name="ville" id="villeID">
+                <option value="tanger">TANGER</option>
+                <option value="rabat">RABAT</option>
+                <option value="casa">CASA</option>
+            </select>
+        <input type="button" value="Afficher" onclick="afficher()">
+        <div id="div1" style="display: none;">
+            <h1>Resultat</h1>
+        </div>
+    </form>
+
+
+
+
+
+    <!-- <form action="" name="f2">
+        Filiere :<input type="text" name="filiere" id="filiereID"> <br>
+        VILLE: <input type="text" name="ville" id="villeID">
+    </form> -->
+
+    <script>
+        //---Methode 1:acceder a un element par son indice
+        /*
+        console.log(document.forms)
+        console.log(document.forms[0])
+        console.log(document.forms[1])
+        console.log(document.forms[0].children)
+        console.log(document.forms[0].childNodes)
+        console.log(document.forms[0].elements[1])
+        console.log(document.forms[0].elements[1].value)
+        */
+       //---Methode 2: acceder a un element par nom
+       /*
+       console.log(document.f1)
+       console.log(document.f1.prenom)
+       console.log(document.f1.prenom.value)
+       */
+      //--Methode 3:Utilisation de getters
+      /*
+      console.log(document.getElementById('prenomID').value)
+      document.getElementById('nomID').value="ALLALI"
+      console.log(document.getElementsByName('prenom')[0].value)
+      */
+
+    </script>
+</body>
+</html>

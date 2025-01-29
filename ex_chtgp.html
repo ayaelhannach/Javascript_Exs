@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        const table =[] ;
+        const n = parseInt(prompt("Entrez combien des nombres : "),10);
+        for(let i=0 ; i<n ;i++){
+            const nombre = parseInt(prompt(`Entrez nombre ${i + 1} : `),10);
+            table.push(nombre);
+        }
+        function calculAverage(table){
+            let total = 0;
+            for(let i=0; i<table.length ; i++){
+                total += table[i];
+                
+            }
+            const moyenne = total / table.length ;
+            console.log(`moyenne est : `+moyenne)
+           
+        }
+        calculAverage(table)
+    </script>
+</body>
+</html>

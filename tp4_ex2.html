@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Liste des Prénoms</title>
+</head>
+<body>
+    <!-- مكان وضع القائمة -->
+    <ul id="prenoms-list"></ul> <!-- قم بإنشاء قائمة غير مرتبة -->
+    <div id="images"></div>
+
+    <script>
+        // جدول يحتوي على الأسماء
+        const prenoms = ["Alice", "Bob", "Charlie", "Diana", "Eve"];
+
+        // دالة لتصفح الجدول وعرض المحتوى في قائمة HTML
+        function afficherPrenoms() {
+            // الحصول على عنصر القائمة حيث سيتم إضافة الأسماء
+            const listElement = document.getElementById("prenoms-list");
+
+            // التحقق من أن العنصر موجود
+            if (!listElement) {
+                console.error("لا يمكن العثور على عنصر القائمة.");
+                return;
+            }
+
+            // تصفح الجدول وإضافة كل اسم كعنصر قائمة
+            prenoms.forEach((prenom) => {
+                const listItem = document.createElement("li"); // إنشاء عنصر قائمة
+                listItem.textContent = prenom; // تعيين محتوى عنصر القائمة
+                listElement.appendChild(listItem); // إضافة عنصر القائمة إلى القائمة
+            });
+        }
+
+        // استدعاء الدالة لعرض الأسماء في القائمة
+        afficherPrenoms();
+
+        function affichefinprenom(){
+            const listElement = document.getElementById("prenoms-list");
+            
+            // التحقق من أن العنصر موجود
+            if (!listElement) {
+                console.error("لا يمكن العثور على عنصر القائمة.");
+                return;
+            }
+            
+              // عكس ترتيب المصفوفة
+              const reversedPrenoms = prenoms.slice().reverse(); // عكس المصفوفة
+
+            // إضافة الأسماء المعكوسة إلى القائمة
+                reversedPrenoms.forEach((prenom) => {
+                    const listItem = document.createElement("li"); // إنشاء عنصر قائمة
+                    listItem.textContent = prenom; // تعيين المحتوى
+                    listElement.appendChild(listItem); // إضافة العنصر إلى القائمة
+                });
+            
+            
+        }
+        
+        affichefinprenom()
+
+        const images = [
+            "1331008.png",
+            "1331008.png",
+            "1331008.png"
+        ]
+
+        function derectionImage(imageArray, isHorizontal){
+            let image = document.getElementById('images');
+           
+
+            image.style.width = "200px"; // تغيير العرض
+            image.style.height = "200px"; // تغيير الارتفاع
+       
+
+
+            const table = document.createElement('table');
+            const row = table.insertRow();
+            
+            if (isHorizontal) {
+                // إذا كان العرض أفقيًا، نضيف الصور إلى الصف الواحد
+                imageArray.forEach(images => {
+                    const cell = row.insertCell(); // إنشاء خلية
+                    const img = document.createElement("img"); // إنشاء عنصر صورة
+                    img.src = images; // تعيين المسار
+                    cell.appendChild(img); // إضافة الصورة إلى الخلية
+                });
+            } else {
+                // إذا كان العرض رأسيًا، نضيف كل صورة في صف منفصل
+                imageArray.forEach(images => {
+                    const cell = row.insertCell(); // إنشاء خلية
+                    const img = document.createElement("img"); // إنشاء عنصر صورة
+                    img.src = images; // تعيين المسار
+                    cell.appendChild(img); // إضافة الصورة إلى الخلية
+
+                    // إضافة صف جديد إذا كان العرض رأسيًا
+                    row = table.insertRow();
+                });
+            }
+
+            image.appendChild(table); // إضافة الجدول إلى الحاوية
+        }
+
+        // عرض الصور أفقيًا
+        derectionImage(images, true); // العرض أفقي
+    
+        
+
+    </script>
+</body>
+</html>

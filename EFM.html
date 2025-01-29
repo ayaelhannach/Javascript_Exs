@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .title{
+            margin-left: 100px;
+        }
+        .visa{
+            width: 80px;
+            height: 80px;
+        }
+        .paypal{
+            width: 80px;
+            height: 80px;
+        }
+    </style>
+</head>
+<body>
+    <h1 class="title">Information de payement</h1>
+    <form id="myFormulaire">
+        <label>Nom et prénom du client :</label>
+        <input type="text" id="nom" required><br><br>
+
+        <label>Adresse :</label>
+        <input type="text" id="adresse" required><br><br>
+        
+        <label>Numéro de téléphone :</label>
+        (+212)<input type="tel" id="numero" required pattern="[0-9]{9}"><br><br>
+        
+        <label>Type de paiement :</label><br>
+        <div id="selection" required>
+            <input type="radio" id="paypalRadio" name="payment" value="paypal">
+            <label for="paypalRadio"><img src="Paypal.jpeg" class="paypal"></label>
+
+            <input type="radio" id="visaRadio" name="payment" value="visa">
+            <label for="visaRadio">par carte bancaire<img src="Visa.jpeg" class="visa"></label>
+        </div><br><br>
+        
+        <div id="Email">
+            <label>Entrer votre e-mail :</label>
+            <input type="email" id="email" required><br><br>
+        </div>
+
+        <div id="passe">
+            <label>Mot de passe :</label>
+            <input type="password" id="password" required><br><br>
+        </div>
+        
+        <label id="nb">NB : N'oubliez pas d'autoriser la transaction</label><br><br>
+        
+        <button type="submit" id="valider">Valider</button>
+        <button type="reset" id="effacer">Effacer</button>
+    </form>
+    <script>
+        document.getElementById('myFormulaire').addEventListener('submit', function(event) {
+            event.preventDefault();
+            let nom = document.getElementById('nom').value;
+            let adresse = document.getElementById('adresse').value;
+            let tel = document.getElementById('numero').value;
+            let selection = document.querySelector('input[name="payment"]:checked');
+            let email = document.getElementById('email').value;
+            let password = document.getElementById('password').value;
+
+            
+            document.getElementById('paypalRadio').checked = true;
+        
+            if (tel.length !== 9) {
+                alert('Le numéro de téléphone doit contenir exactement 9 chiffres');
+                return;
+            } else {
+                console.log('Numéro de téléphone correct');
+            }
+
+            if (selection && selection.value === 'visa') {
+                let Email = document.getElementById('Email');
+                Email.remove();
+
+                let passe = document.getElementById('passe');
+                passe.remove();
+
+                let nb = document.getElementById('nb');
+                nb.remove();
+
+                let valider = document.getElementById('valider');
+                valider.remove();
+
+                let effacer = document.getElementById('effacer');
+                effacer.remove();
+
+                
+                let form = document.getElementById('myFormulaire');
+
+                let typeCarte = document.createElement('label');
+                typeCarte.textContent = 'Sélectionnez le type de carte : ';
+                form.appendChild(typeCarte);
+
+                
+                let inputCarte = document.createElement('select');
+                let option = document.createElement('option');
+                option.textContent = 'Visa';
+                inputCarte.appendChild(option);
+                form.appendChild(inputCarte);
+
+                let NumCarte = document.createElement('label');
+                NumCarte.textContent =  'Numero de carte :';
+                form.appendChild(NumCarte);
+
+                let InputNum = document.createElement('input');
+                InputNum.setAttribute('type', 'text');
+                form.appendChild(InputNum);
+
+                let br1 = document.createElement('br');
+                form.appendChild(br1);
+
+                let br2 = document.createElement('br');
+                form.appendChild(br2);
+
+                let expiration = document.createElement('label');
+                expiration.textContent =  'Expiration fin :';
+                form.appendChild(expiration);
+
+                let InputEx = document.createElement('input');
+                InputEx.setAttribute('type', 'number');
+                form.appendChild(InputEx);
+
+
+                let InputNombre = document.createElement('input');
+                InputNombre.setAttribute('type', 'number');
+                form.appendChild(InputNombre);
+
+                let br3 = document.createElement('br');
+                form.appendChild(br3);
+
+                let br4 = document.createElement('br');
+                form.appendChild(br4);
+
+
+                let CodeViri = document.createElement('label');
+                CodeViri.textContent =  'Code de Verification :';
+                form.appendChild(CodeViri);
+
+
+                let InputCode = document.createElement('input');
+                InputCode.setAttribute('type', 'text');
+                form.appendChild(InputCode);
+
+                let br5 = document.createElement('br');
+                form.appendChild(br5);
+
+                let br6 = document.createElement('br');
+                form.appendChild(br6);
+
+                let button = document.createElement('button');
+                button.textContent = 'Valider';
+                button.setAttribute('type','submit');
+                form.appendChild(button);
+
+
+                let button2 = document.createElement('button');
+                button2.textContent = 'Effacer';
+                button2.setAttribute('type','reset');
+                form.appendChild(button2);
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function Article(numero ,description ,prixUnitaire){
+            this.numero = numero;
+            this.description = description ;
+            this.prixUnitaire = prixUnitaire ;
+        };
+        Article.prototype.afficherDetails = function(){
+            
+            console.log(` numero est ${this.numero}`);
+            console.log(` description d'article est ${this.description}`);
+            console.log(` prix unitaire d'article est ${this.prixUnitaire}`);
+        };
+
+        Article.prototype.effectuerReduction = function(taux){
+            this.prixUnitaire =this.prixUnitaire - this.prixUnitaire * (taux / 100);
+        };
+    </script>
+</body>
+</html>

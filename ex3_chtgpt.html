@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Count Words in a String</title>
+</head>
+<body>
+    <script>
+        // طلب إدخال من المستخدم
+        const chain = prompt("Entrez une chaîne :");
+
+        // دالة لحساب عدد الكلمات في سلسلة نصية
+        function countWords(chain) {
+            // تقسيم السلسلة إلى كلمات بناءً على المسافات البيضاء
+            const words = chain.trim().split(/\s+/); // استخدام التعبير العادي للتقسيم
+            return words.length; // إعادة عدد الكلمات
+        }
+
+        // حساب عدد الكلمات في السلسلة التي أدخلها المستخدم
+        const wordCount = countWords(chain);
+
+        // عرض النتيجة
+        console.log("Nombre de mots dans la chaîne : " + wordCount);
+    </script>
+</body>
+</html>

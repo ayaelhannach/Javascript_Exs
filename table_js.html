@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <table id="tableau" border="2px">
+        <tr >
+            <td >nom</td>
+            <td>prenom</td>
+        </tr>
+        <tr>
+            <td>Hello </td>
+            <td>World</td>
+        </tr>
+        <tr>
+            <td>Aya</td>
+            <td>El hannach</td>
+        </tr>
+    </table>
+    <br>
+    <button type="button" onclick="myFunction()">Try it</button>
+    <script>
+        function myFunction(){
+            let table = document.getElementById('tableau');
+            let row = table.insertRow(0);
+            let cell1 = row.insertCell(0);
+            let cell2 = row.insertCell(1);
+            cell1.innerHTML = "NEW CELL1";
+            cell2.innerHTML = "NEW CELL2";
+        }
+        myFunction()
+    </script>
+</body>
+</html>

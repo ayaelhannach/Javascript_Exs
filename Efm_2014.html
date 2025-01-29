@@ -1,0 +1,217 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            width: 60%;
+        }
+        fieldset{
+            margin-top: 120px;
+            margin-left: 170px;
+        }
+    </style>
+</head>
+<body>
+    <fieldset>
+        <legend>Calcul de frais de transport de colis</legend>
+        <form id="formulaire">
+            <table>
+                <tr>
+                    <td>N° de colis :</td>
+                    <td>
+                        <input type="text" id="NumeroColis">
+                    </td>
+                </tr>
+                <tr>
+                    <td>Mode de transport :</td>
+                    <td id="selection">
+                        <input type="radio" name="mode">Express
+                        <input type="radio" name="mode">Normal
+                    </td>
+                </tr>
+                <tr>
+                    <td>Distance :</td>
+                    <td>
+                        <input type="text" id="Distance" >KM
+                    </td>
+                </tr>
+                <tr>
+                    <td>Poids :</td>
+                    <td>
+                        <input type="text" id="poids">KG
+                    </td>
+                </tr>
+                <tr>
+                    <td>Cout Total :</td>
+                    <td>
+                        <input type="number" id="total">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <button>Calculer</button>
+                        <button type="reset">effacer</button>
+                    </td>
+                    
+                </tr>
+                
+    
+            </table>
+        </form>
+    </fieldset>
+    <script>
+        document.getElementById('formulaire').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            let numero = document.getElementById('NumeroColis').value ;
+            let mode = document.querySelector('input[name="mode"]:checked');
+            let distance = document.getElementById('Distance').value ;
+            let poids = document.getElementById('poids').value ;
+
+            if (numero === "" || distance === "" || poids === "") {
+                alert("Tous les champs sont obligatoires.");
+                return false;
+            }
+
+            let ColisN = /^[A-Za-z]{2}\d{3}$/;
+
+            if (ColisN.test(numero)){
+                console.log('true');
+            }
+            else{
+                alert("verifier le N° de colis");
+            }
+
+            if(isNaN(distance) || isNaN(poids)){
+                alert('La distance et le poids sont des champs numériques');
+                return false;
+            }
+            return true;
+
+        });
+        
+        
+        var coutTotal ;
+        function calculPrixTotale(){
+            if(poids< 10){
+                coutTotal =distance * 0,5;
+            }
+            else if(poids>10){
+                coutTotal= distance*(poids/10)*0,3 ;
+            }
+            if (modeExpress) {
+                coutTotal *= 1.2; 
+            }
+
+            return coutTotal;
+        }
+        calculPrixTotale();
+    </script>
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            width: 60%;
+        }
+
+        fieldset {
+            margin-top: 120px;
+            margin-left: 170px;
+        }
+    </style>
+</head>
+<body>
+<fieldset>
+    <legend>Calcul de frais de transport de colis</legend>
+    <form id="formulaire">
+        <table>
+            <tr>
+                <td>N° de colis :</td>
+                <td>
+                    <input type="text" id="NumeroColis">
+                </td>
+            </tr>
+            <tr>
+                <td>Mode de transport :</td>
+                <td id="selection">
+                    <input type="radio" name="mode" value="express">Express
+                    <input type="radio" name="mode" value="normal">Normal
+                </td>
+            </tr>
+            <tr>
+                <td>Distance :</td>
+                <td>
+                    <input type="text" id="Distance">KM
+                </td>
+            </tr>
+            <tr>
+                <td>Poids :</td>
+                <td>
+                    <input type="text" id="poids">KG
+                </td>
+            </tr>
+            <tr>
+                <td>Cout Total :</td>
+                <td>
+                    <input type="number" id="total" readonly>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <button type="button" onclick="calculer()">Calculer</button>
+                    <button type="reset">Effacer</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+</fieldset>
+<script>
+    function calculer() {
+        let numero = document.getElementById('NumeroColis').value;
+        let mode = document.querySelector('input[name="mode"]:checked').value;
+        let distance = parseFloat(document.getElementById('Distance').value);
+        let poids = parseFloat(document.getElementById('poids').value);
+
+        if (numero === "" || distance === "" || isNaN(distance) || poids === "" || isNaN(poids)) {
+            alert("Veuillez remplir tous les champs et assurez-vous que la distance et le poids sont des nombres.");
+            return;
+        }
+
+        let ColisN = /^[A-Za-z]{2}\d{3}$/;
+
+        if (!ColisN.test(numero)) {
+            alert("Veuillez vérifier le N° de colis.");
+            return;
+        }
+
+        let coutTotal = calculPrixTotale(distance, poids, mode);
+        document.getElementById('total').value = coutTotal;
+    }
+
+    function calculPrixTotale(distance, poids, mode) {
+        let coutTotal;
+        if (poids < 10) {
+            coutTotal = distance * 0.5;
+        } else {
+            coutTotal = distance * (poids / 10) * 0.3;
+        }
+
+        if (mode === "express") {
+            coutTotal *= 1.2;
+        }
+
+        return coutTotal;
+    }
+</script>
+</body>
+</html>

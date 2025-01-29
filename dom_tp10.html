@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1 style="margin-left:350px;">Formulaire Pour ajouter livre dans bibliotheque</h1>
+    <form id="myFormulaire">
+        <table>
+            <tr>
+                <td>Ref :</td>
+                <td>
+                    <input type="text" id="ref">
+                </td>
+            </tr>
+            <tr>
+                <td>Titre :</td>
+                <td>
+                    <input type="text" id="titre">
+                </td>
+            </tr>
+            <tr>
+                <td>Date d'edition :</td>
+                <td>
+                    <input type="date" id="date">
+                </td>
+            </tr>
+            <tr>
+                <td>Genre</td>
+                <td>
+                    <select id="selection">
+                        <option>Roman</option>
+                        <option>Science-fiction</option>
+                        <option>Policier</option>
+                    </select>
+                </td>
+            </tr>
+            <tr id="exemplaire">
+                <td>Nombre d'exemplaire</td>
+                <td >
+                    <input type="text" id="Exemplaire">
+                </td>
+            </tr>
+    
+    
+        </table>
+        <button type="submit">Ajouter</button>
+    </form>
+    <table border="1">
+        <tr>
+            <th>REF</th>
+            <th>Titre</th>
+            <th>Genre</th>
+            <th>Date D'EDITION</th>
+            <th>Nombre D'exemplaire</th>
+            <th>Action</th>
+        </tr>
+    </table>
+        
+    <script>
+        document.getElementById('myFormulaire').addEventListener('submit',function(){
+            let reference = document.getElementById('ref').value;
+            let expreg = /^[L]\d{3}$/;
+            if(!expreg.test(reference)){
+                alert('la reference doit être commence par la lettre L suivi par 3 chiffres ') ;
+            }
+
+            let titre = document.getElementById('titre').value;
+            let exreg =  /^[A-Za-z\s]{2,50}$/;
+            if(!exreg.test(titre)){
+                alert('	Le titre doit contenir les alphabets et les espaces avec une taille entre 2 et 50. ');
+            }
+
+            let Exemplaire = document.getElementById('Exemplaire').value;
+            if(isNaN(Exemplaire)){
+                let exemplaire = document.getElementById('exemplaire');
+                let alert = document.createElement('td');
+                alert.textContent = 'Le nombre d’exemplaires doit être un nombre';
+                alert.style.color = 'red';
+                exemplaire.appendChild(alert);
+
+            }
+
+            
+        })
+    </script>
+</body>
+</html>

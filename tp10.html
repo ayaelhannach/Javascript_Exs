@@ -1,0 +1,269 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form id="formulaire">
+        <table>
+            <tr id="ref">
+                <td>Ref :</td>
+                <td>
+                    <input type="text" id="reference">
+                </td>
+            </tr>
+            <tr id="text">
+                <td>Titre :</td>
+                <td>
+                    <input type="text" id="title">
+                </td>
+            </tr>
+            <tr>
+                <td>Date d'edition :</td>
+                <td>
+                    <input type="text" id="Date">
+                </td>
+            </tr>
+            <tr>
+                <td>Genre :</td>
+                <td>
+                    <select id ='selection'>
+                        <option>Roman</option>
+                        <option>Science-fiction</option>
+                        <option >Policier</option>
+                    </select>
+                </td>
+            </tr>
+            <tr id="exemplaire">
+                <td>Nombre d'exemplaire :</td>
+                <td>
+                    <input type="text" id="nombreEX">
+                </td>
+            </tr>
+            
+        </table>
+        <button tye="submit" >Ajouter</button>
+    </form>
+
+    <h1 style="margin-left: 100px;">Liste des livre</h1>
+    <table border="2px" id="table" style="width: 60%; margin-left: 100px;">
+        <tr>
+            <th>REF</th>
+            <th>TITRE</th>
+            <th>GENRE</th>
+            <th>DATE D'EDITION</th>
+            <th>NOMBRE D'EXEMPLAIRE</th>
+            <th>Action</th>
+        </tr>
+        
+    </table>
+    <script>
+        document.getElementById('formulaire').addEventListener('submit',function(aya){
+            aya.preventDefault();
+            
+            let ref = document.getElementById('reference').value;
+
+            let expreg = /^[L]\d{3}$/;
+
+            if(!expreg.test(ref)){
+                let trRef = document.getElementById('ref');
+                let alert = document.createElement('td');
+                alert.textContent = 'doit être commence par la lettre L suivi par 3 chiffres ';
+                alert.style.color = 'red';
+                trRef.appendChild(alert);
+            }
+
+            let title = document.getElementById('title').value;
+
+            let expreg2 = /^[A-Za-z\s]{2,50}$/;
+
+            let text = document.getElementById('text');
+
+            if(!expreg2.test(title)){
+                let trTitle = document.getElementById('text'); 
+                let alert2 = document.createElement('td');
+                alert2.textContent = 'Le titre doit contenir les alphabets et les espaces avec une taille entre 2 et 50.';
+                alert2.style.color = 'red';
+                trTitle.appendChild(alert2);
+            }
+
+            let exemplaire = document.getElementById('nombreEX').value;
+            if(isNaN(exemplaire)){
+                let trExemplaire = document.getElementById('exemplaire'); 
+                let alert3 = document.createElement('td');
+                alert3.textContent = '	Le nombre d’exemplaires doit être un nombre';
+                alert3.style.color = 'red';
+                trExemplaire.appendChild(alert3);
+            }
+
+            if(valid){
+                let table = document.getElementById('table');
+                let row = table.insertRow(-1);
+
+                row.insertCell(0).innerHTML = ref;
+
+                row.insertCell(1).innerHTML = title;
+
+                let select = document.getElementById('selection').value;
+                row.insertCell(2).innerHTML = select;
+
+                let date = document.getElementById('Date').value ; 
+                row.insertCell(3).innerHTML = date  ;
+
+                let nombreEx = document.getElementById('nombreEX').value;
+                row.insertCell(4).innerHTML = nombreEX ;
+
+                let cell5 = row.insertCell(5);
+                let button = document.createElement('button');
+                button.textContent = 'emprunter';
+                cell5.appendChild(button);
+
+            }
+
+
+        })
+    </script>
+</body>
+</html> -->
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form id="formulaire">
+        <table>
+            <tr id="ref">
+                <td>Ref :</td>
+                <td>
+                    <input type="text" id="reference">
+                </td>
+            </tr>
+            <tr id="text">
+                <td>Titre :</td>
+                <td>
+                    <input type="text" id="title">
+                </td>
+            </tr>
+            <tr>
+                <td>Date d'edition :</td>
+                <td>
+                    <input type="text" id="Date">
+                </td>
+            </tr>
+            <tr>
+                <td>Genre :</td>
+                <td>
+                    <select id="selection">
+                        <option>Roman</option>
+                        <option>Science-fiction</option>
+                        <option>Policier</option>
+                    </select>
+                </td>
+            </tr>
+            <tr id="exemplaire">
+                <td>Nombre d'exemplaire :</td>
+                <td>
+                    <input type="text" id="nombreEX">
+                </td>
+            </tr>
+        </table>
+        <button type="submit">Ajouter</button>
+    </form>
+
+    <h1 style="margin-left: 100px;">Liste des livres</h1>
+    <table border="2px" id="table" style="width: 60%; margin-left: 100px;">
+        <tr>
+            <th>REF</th>
+            <th>TITRE</th>
+            <th>GENRE</th>
+            <th>DATE D'EDITION</th>
+            <th>NOMBRE D'EXEMPLAIRE</th>
+            <th>Action</th>
+        </tr>
+    </table>
+    <script>
+        document.getElementById('formulaire').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            // Clear previous alerts
+            document.querySelectorAll('td[style="color: red;"]').forEach(alert => alert.remove());
+
+            let ref = document.getElementById('reference').value;
+            let expreg = /^[L]\d{3}$/;
+            let valid = true;
+
+            if (!expreg.test(ref)) {
+                let trRef = document.getElementById('ref');
+                let alert = document.createElement('td');
+                alert.textContent = 'doit être commence par la lettre L suivi par 3 chiffres';
+                alert.style.color = 'red';
+                trRef.appendChild(alert);
+                valid = false;
+            }
+
+            let title = document.getElementById('title').value;
+            let expreg2 = /^[A-Za-z\s]{2,50}$/;
+
+            if (!expreg2.test(title)) {
+                let trTitle = document.getElementById('text');
+                let alert2 = document.createElement('td');
+                alert2.textContent = 'Le titre doit contenir les alphabets et les espaces avec une taille entre 2 et 50.';
+                alert2.style.color = 'red';
+                trTitle.appendChild(alert2);
+                valid = false;
+            }
+
+            let exemplaire = document.getElementById('nombreEX').value;
+            if (isNaN(exemplaire)  ) {
+                let trExemplaire = document.getElementById('exemplaire');
+                let alert3 = document.createElement('td');
+                alert3.textContent = 'Le nombre d’exemplaires doit être un nombre positif';
+                alert3.style.color = 'red';
+                trExemplaire.appendChild(alert3);
+               
+            }
+
+            
+                let table = document.getElementById('table');
+                let row = table.insertRow(-1);
+
+                row.insertCell(0).innerHTML = ref;
+                row.insertCell(1).innerHTML = title;
+
+                let select = document.getElementById('selection').value;
+                row.insertCell(2).innerHTML = select;
+
+                let date = document.getElementById('Date').value;
+                row.insertCell(3).innerHTML = date;
+
+                let nombreEx = document.getElementById('nombreEX').value;
+                let cellNombreEx = row.insertCell(4);
+                cellNombreEx.innerHTML = nombreEx;
+
+                let cell5 = row.insertCell(5);
+                let button = document.createElement('button');
+                button.textContent = 'emprunter';
+                cell5.appendChild(button);
+
+                
+                button.addEventListener('click', function() {
+                    if (nombreEx > 0) {
+                        nombreEx--;
+                        cellNombreEx.innerHTML = nombreEx;
+                        if (nombreEx === 0) {
+                            button.disabled = true;
+                        }
+                    }
+                });
+        });
+    </script>
+</body>
+</html>

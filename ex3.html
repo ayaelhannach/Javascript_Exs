@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let chain = 'hello Aya welcome';
+        function inverserChaine(){
+            let chainInverse = chain.split("").reverse().join("");
+            console.log(chainInverse);
+        }
+        inverserChaine();
+
+        
+        let chain2 = prompt("entrer une chaine de caractere : ");
+        let chainInverse2 = chain2.split("").reverse().join("") ;
+
+        function inverserChaine2(){
+            if ( chain2 == chainInverse2 ){
+                console.log("true")
+            }
+            else{
+                console.log("false")
+            }
+        }
+        inverserChaine2()
+    </script>
+</body>
+</html>
+

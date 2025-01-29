@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #content{
+            margin-top: 180px;
+            margin-left: 250px;
+            border: 2px solid black;
+            width: 40%;
+            padding: 45px;
+            padding-left: 40px;
+        }
+    </style>
+</head>
+<body>
+    <div id="content">
+        <h1 id="title" >Choix du Theme</h1>
+        <p>Selectionnez un theme :</p>
+        <select id="selection" style="width: 250px;">
+            <option selected disabled>selectionnez un theme </option>
+            <option value="clair" >theme clair</option>
+            <option value="sombre"  >theme sombre</option>
+            <option value="colore">theme Coloré </option>
+        </select>
+    </div>
+    <script>
+        let selection = document.getElementById('selection');
+        let title = document.getElementById('title');
+        let content = document.getElementById('content');
+        
+        selection.addEventListener('change', function() {
+            if (selection.value === 'clair') {
+                title.style.color = 'black';
+                document.body.style.backgroundColor ='lightgray';
+                content.style.background = 'white'
+            } 
+            else if (selection.value === 'sombre') {
+                title.style.color = 'grey';
+                selection.style.background = '#454545';
+                selection.style.color = 'white'
+                document.body.style.backgroundColor ='#454545';
+                content.style.background = 'white'
+
+            } 
+            else if (selection.value === 'colore') {
+                title.style.color = 'red';
+                selection.style.background = 'red';
+                selection.style.color = 'white'
+                document.body.style.backgroundColor ='red';
+                content.style.background = 'white'
+
+            }
+        });
+    
+    </script>
+</body>
+</html>

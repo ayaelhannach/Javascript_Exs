@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        const table = [];  
+        const n = parseInt(prompt("كم عدد الأرقام التي تريد إدخالها في الجدول؟"), 10);  
+        
+        
+        for (let i = 0; i < n; i++) { 
+            const number = parseInt(prompt(`أدخل الرقم ${i + 1}:`), 10);  
+            table.push(number); 
+        }
+
+        function maximum(table) {
+            
+            let max = table[0];  
+            for (let i = 1; i < table.length; i++) {
+                if (table[i] > max) {  
+                    max = table[i];  
+                }
+            }
+            return max;
+        }
+
+        
+        const maxNumber = maximum(table);
+        if (maxNumber !== null) {
+            console.log(`أكبر عدد هو: ${maxNumber}`);
+        } else {
+            console.log("لم يتم إدخال أي أرقام.");  
+        }
+    </script>
+</body>
+</html>

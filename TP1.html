@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ex1</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $("button").click(function(){
+                $("#p1").hide(); // Cache le paragraphe avec l'id 'p1'
+                $("a").hide();   // Cache tous les liens hypertextes
+            });
+        });
+    </script>
+</head>
+<body>
+
+<p >This is a paragraph.</p>
+<p id="p1">This is another paragraph.</p>
+<a href="https://www.w3schools.com/html/">HTML Tutorial</a>
+<a href="https://www.w3schools.com/css/">CSS Tutorial</a>
+<button>click me</button>
+
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        const table =[] ;
+        const n = parseInt(prompt("Entrez combien des nombres : "),10);
+        for(let i=0 ; i<n ;i++){
+            const nombre = parseInt(prompt(`Entrez nombre ${i + 1} : `),10);
+            table.push(nombre);
+        }
+        function somme(table){
+            let premier =0;
+            for(let i=0 ; i<table.length ; i++){
+                premier += table[i];
+            }
+            return premier;
+           
+        }
+        const affiche = somme(table);
+        if(affiche !== null){
+            console.log(`la somme est : ${affiche}`)
+        }
+        else{
+            console.log("that false")
+        }
+
+    </script>
+</body>
+</html>

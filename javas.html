@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+</head>
+<body>
+    
+    <div id="tout">
+        <div id="pr">
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+                Quod corporis sapiente eos cum molestiae quos laudantium ad dicta assumenda
+                 incidunt! Quod necessitatibus quidem laudantium. Pariatur maxime eius earum nisi iste.
+            </p>
+            <img src="image-ia-exemple.avif" id="imag">
+
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magni cumque, 
+                perspiciatis quaerat hic quam, voluptates eius eum rerum dolores fugiat in vero optio
+                 non? Necessitatibus qui officia similique blanditiis, provident numquam! Adipisci autem deleniti dolorem nisi pariatur delectus, fugiat,
+                  ea laudantium perferendis iusto reiciendis aperiam voluptatem! Exercitationem
+                 ullam debitis aut magnam nisi nam neque officia laudantium accusamus? Numquam, rem corporis?
+            </p>
+
+        </div>
+        <div id="frm">
+            
+            <table>
+                <tr>
+                    <td>
+                        <label > Couleur de fond</label>
+                    </td>
+                    <td>
+                        <select id="color" onclick="change()">
+                            <option>Blanc</option>
+                            <option>Red</option>
+                            <option>Pink</option>
+                            <option>Yellow</option>
+                            <option>Blue</option>
+                            <option>Grey</option>
+                            <option>Green</option>
+                            <option>white</option>
+                        </select>
+                    
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label > Text</label>
+                    </td>
+                    <td>
+                        <select id="text" onclick="changeText()">
+                            <option id="textstyle">Normal</option>
+                            <option  id="textstyle">underlines</option>
+                            <option  id="textstyle">italics</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label > Police</label>
+                    </td>
+                    <td>
+                        <select id="police" onclick="changePolice()">
+                            <option>Times New Roman</option>
+                            <option>Arial</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label > Police 1ere phrase</label>
+                    </td>
+                    <td>
+                        <select id="phrase">
+                            <option>Times New Roman</option>
+                            <option>Arial</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label > Premiere caractere des phrases</label>
+                    </td>
+                    <td>
+                        <select id="caractere">
+                            <option>Normal</option>
+                            <option>fat</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label id="mot"> Mot en Rouge</label>
+                    </td>
+                    <td>
+                        <input type="text" style="width: 30px;" id="rouge">
+                        <button style="width: 30px;">Ok</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label > Bordure Images</label>
+                    </td>
+                    <td>
+                        <select>
+                            <option id="bord">Rien</option>
+                            <option>Simple</option>
+                            <option>double</option>
+                        </select>
+                    </td>
+                </tr>
+            </table>
+            <button type="submit">RAZ formulaire</button>    
+        </div>
+    </div>
+    <script>
+
+        
+        let all= document.getElementById('tout');
+        all.style.display='flex';
+        document.write(all);
+
+        let text = document.getElementById('pr');
+        text.style.width ='50%';
+        text.style.marginTop = '60px';
+        text.style.marginLeft ='30px';
+        text.style.border ='3px solid black';
+        text.style.padding = '20px';
+        document.write(text);
+
+        let image = document.getElementById('imag');
+        image.style.width ='250px';
+        image.style.height ='200px';
+        document.write(image);
+
+        let form = document.getElementById('frm');
+        form.style.marginLeft ='50px';
+        form.style.marginTop ='60px';
+        form.style.border = '3px solid black';
+        form.style.padding ='20px';
+        document.write(form);
+
+
+
+        function change() {
+            var colorInput = document.getElementById('color'); // حدد عنصر إدخال اللون
+            var selectedColor = colorInput.value; // احصل على قيمة اللون
+
+            var prDiv = document.getElementById('pr'); // حدد العنصر الذي سيتم تغيير لونه
+
+            prDiv.style.backgroundColor = selectedColor; // غيّر لون الخلفية للعنصر
+        }
+        change() 
+
+
+        function changeText() {
+            var textSelect = document.getElementById('text');
+            var selectedText = textSelect.options[textSelect.selectedIndex].value;
+
+            var paragraph = document.getElementById('pr'); 
+
+            if (selectedText === 'underlines') {
+                paragraph.style.textDecoration = 'underline'; 
+                paragraph.style.fontStyle = 'normal';
+            } 
+            
+            else if (selectedText === 'italics') {
+                paragraph.style.fontStyle = 'italic';
+                paragraph.style.textDecoration = 'none';
+            } 
+            
+            else {
+                paragraph.style.textDecoration = 'none'; 
+                paragraph.style.fontStyle = 'normal'; 
+            }
+        }
+
+        changeText()
+    
+    
+        function changePolice() {
+    
+            var textPolice = document.getElementById('police');
+    
+    
+            var selectedPolice = textPolice.options[textPolice.selectedIndex].value; 
+            var paragraph = document.getElementById('pr'); 
+    
+    
+            if (selectedPolice === 'Times New Roman') {
+                paragraph.style.fontFamily = 'Times New Roman'; 
+            } else if (selectedPolice === 'Arial') {
+                paragraph.style.fontFamily = 'Arial'; 
+            } else {
+                paragraph.style.fontFamily = '';
+            }
+        }
+
+        changePolice()
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

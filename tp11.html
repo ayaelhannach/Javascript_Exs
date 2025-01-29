@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form id="formulaire">
+        <div id="premier">
+            <select id="selection">
+                <option>Langage C</option>
+                <option>Programmation Javascript</option>
+                <option>Laravel </option>
+            </select>
+        </div>
+    </form>
+    <script>
+        document.getElementById('formulaire').addEventListener('change',function(){
+            Livresdata=[{"ISBN":"01234","titre":"Langage C","image":"langagec.jpg","prix":150},
+
+            {"ISBN":"56789","titre":"Programmation Javascript","image":"javascript.jpg","prix":250},
+
+            {"ISBN":"11778","titre":"Laravel","image":"laravel.jpg","prix":200}]
+        })
+    </script>
+</body>
+</html>
